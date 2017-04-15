@@ -6,55 +6,123 @@ body {
 }
 
 header, footer {
-	padding: 10px;
+	padding: 0px;
 	color: white;
 	background-color: #2b2d2e;
+	font-family: 'Corben', Georgia, Times, serif;
+}
+
+header h1 {
+	font-size: 38px;
 }
 
 section {
-	padding: 50px 0px 300px 0px;
+	padding: 5px 50px 180px 50px;
 	background-color: white;
 	background-image: url(bckground.png);
 	background-repeat: no-repeat;
 	background-position: bottom;
+	min-height: 300px
 }
 
-form {
+.line {
+	margin: 5px 10px 0px 10px;
+}
+
+.container1 {
+	padding-top: 5px;
+	float: left;
+}
+
+.container2 {
+	padding-top: 15px;
+	float:bottom;
+	clear: both;
+}
+
+.container2-1 {
+	float:left;
+}
+
+.container2-1 input[type=text]{
+	width:300px;
+}
+
+.container2-2 {
+	float:left;
+	text-align:left;
+	margin: 0px 50px 0px 50px; 
+}
+
+.form_login {
 	margin: 0px 300px 0px 300px;
 	padding: 20px 20px 20px 20px;
 	background-color: #e3eaee;
 	box-shadow: 1px 1px 20px #888888;
-}
-
-.form_login {
 	border: 0px;
 }
 
-button {
-	border: 0px;
-	background-color: #6b7174;
-	padding: 5px 15px 5px 15px;
-	box-shadow: 5px 5px 35px #888888;
+input[type=text], input[type=password], select {
+	//background-color: #4CAF50;
+    //color: white;    
+	padding: 5px 10px;
+	margin: 5px 10px 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    box-sizing: border-box;
 }
 
-button:hover {
-	border: 0px;
-	background-color: #565a5c;
-	padding: 5px 15px 5px 15px;
-	box-shadow: 5px 5px 35px #888888;
+input[name="tid"] {
+	width: 50%
+}
+
+.item {
+	text-align: left;
+	padding:0px;
+	overflow: hidden;
+}
+
+a { 
+ text-decoration:none; 
+ color: black;
+} 
+
+.button{
+	text-decoration: none;
+	display: inline-block;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	margin:5px;
+	padding:15px 20px;
+	border-radius:16px;
+}
+.button:hover{
+	background-color: #777;
+}
+.button:active{
+	top: 2px;
+	left:2px;
+}
+            
+.green{
+        background-color: #32CD32;
+        color: #fff;
+}
+.green:hover{
+	background-color: #2F4F4F;
 }
 
 .leftmenu {
 	float: left;
 }
 
-
 .leftmenu ul {
 	background-color: #e3eaee;
 	text-align: left;
 	box-shadow: 1px 1px 20px #888888;
     list-style-type: none;
-    margin: 0px 50px 0px 50px;
+    margin: 30px 50px 0px 50px;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1; 
@@ -86,8 +154,6 @@ button:hover {
 	height: calc(100% - 310px);
 	background-color: white;
 }
-
-
 
 .month {
 	margin-left: 250px;
