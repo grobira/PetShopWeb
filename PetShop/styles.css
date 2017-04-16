@@ -251,6 +251,7 @@ a {
     border-radius: 8px;
     width: 70%;
 }
+
 .produto{
     width: 31%;
     height: 300px;
@@ -277,3 +278,33 @@ a {
     margin: 10px;
     font-size: 13px;
 }
+
+
+#animais{
+    float: left;
+    left: 50%;
+    border-radius: 8px;
+    width: 70%;
+}
+
+.animal{
+	text-align: center;
+    width: 31%;
+    height: 200px;
+    margin-top: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    float: left;
+    margin-left: 10px;
+    background-color: white;
+}
+.animal img{
+    width: 60%;
+    margin: 12px;
+}
+.animal h1{
+    font-size: 13px;
+    margin: 8px;
+
+}
+
