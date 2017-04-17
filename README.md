@@ -3,5 +3,7 @@
 Trabalho de Web
 
 Autores:
-	Giovanni Robira	
+
+	Giovanni Robira
+	
 	Julia Minetto Macias
