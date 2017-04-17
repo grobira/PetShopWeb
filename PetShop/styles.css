@@ -109,6 +109,27 @@ a {
 	background-color: #2F4F4F;
 }
 
+
+.butt_buy {
+	text-decoration: none;
+	display: inline-block;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	margin:5px;
+	padding:15px 20px;
+	border-radius:16px;
+    background-color: #32CD32;
+    color: #fff;
+    position: absolute;
+    right: 0; 
+    bottom: 0;
+}
+
+.butt_buy:hover{
+	background-color: #2F4F4F;
+}
+
 .tabs {
   position: relative;   
   min-height: 200px;
@@ -302,13 +323,14 @@ textarea {
 
 .produto{
     width: 31%;
-    height: 300px;
+    height: 350px;
     margin-top: 25px;
     border: 1px solid #ddd;
     border-radius: 10px;
     float: left;
     margin-left: 10px;
     background-color: white;
+    position: relative;
 }
 .produto img{
     width: 60%;
