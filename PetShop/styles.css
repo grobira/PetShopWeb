@@ -130,6 +130,11 @@ a {
 	background-color: #2F4F4F;
 }
 
+#carrinho {
+	height: 5%;
+	width: 5%;
+}
+
 .tabs {
   position: relative;   
   min-height: 200px;
