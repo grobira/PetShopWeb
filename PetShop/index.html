@@ -16,15 +16,12 @@
 	<section>
 		<form action="#">
 			<fieldset class="form_login">
-				<p>Bem vindo ao nosso sistema! Nossa ferramenta busca um melhor conforto para você usuário e a vida de seu bichinho. Utilize seu cadastro para começar.</p>
-				<!--legend>Fazer login para prosseguir.</legend-->
-				<div class="container2-1"> 
-					<p class="line">Login:<br></p>
-					<p class="line">Password:<br></p>
-				</div>
-				<div class="container2-2">
-					<input type="text" id="login"><br>
-					<input type="password" id="password"><br>
+				<p>Bem vindo ao nosso sistema! Utilize seu cadastro para começar.</p>
+				<div class="container_login"> 
+					<label><b>Login</b></label>
+    				<input type="text" placeholder="Entre com Login" id="uname">
+					<label><b>Password</b></label>
+    				<input type="password" placeholder="Entre com o Password" id="psw">
 				</div>
 				<div class="container2">				
 					<a href="#" id="btn" class="button green" onclick="login()">Login</a>
@@ -35,12 +32,10 @@
 	<footer>
 		<p>&copy; 2017 PetShop.</p>
 	</footer>
-</body>
-</html>
 
-<script>
+<script "type=text/javascript">
 function login(){
-	if (document.getElementById('login').value == "admin" && document.getElementById('password').value == "admin") {
+	if (document.getElementById('uname').value == "admin" && document.getElementById('psw').value == "admin") {
 		document.getElementById('btn').href="indexadmin.html"; 
 	} 
 	else {
@@ -48,3 +43,6 @@ function login(){
 	}
 }
 </script>
+
+</body>
+</html>
