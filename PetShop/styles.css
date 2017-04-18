@@ -341,6 +341,10 @@ a {
     width: 70%;
 }
 
+#produtos input[type=number] {
+	width:50px;
+}
+
 .produto{
     width: 31%;
     height: 350px;
@@ -368,6 +372,8 @@ a {
     margin: 10px;
     font-size: 13px;
 }
+
+
 
 
 #animais{
