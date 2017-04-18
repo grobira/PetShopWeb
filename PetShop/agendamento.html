@@ -28,6 +28,7 @@
 				</div> 
 
 				<div class="item">
+				<h2>Agendamento de serviços </h2> <hr>
 				<div class="container1">
 					<div class="calendar">
 						<div class="month">      
@@ -148,31 +149,33 @@
 						</ul>
 					</div>
 				</div>		
-				<div class="container2">
+				<div class="container_agenda">
 					<form class="formagenda">
 						<fieldset>
 							<legend>Código do serviço:</legend>
+								<input type="text" name="tid" value="xxxxxx"><br>
 						</fieldset> <br>
 						<fieldset>
 							<legend>Código do seu pet:</legend>
+								<input type="text" name="tid" value="xxxxxx"><br>
 						</fieldset>	<br>					
 						<fieldset>
     						<legend>Selecione o horário:</legend>
 								<input type="radio" name="horario"> 09:00 am<br>
 								<input type="radio" name="horario"> 10:00 am<br>
 								<input type="radio" name="horario"> 11:00 am<br>
-								<input type="radio" name="horario" disabled> 12:00 am - reservado<br>
+								<input type="radio" name="horario" disabled> 12:00 am (reservado)<br>
 									<div class="reservado">
 										<div class="container1">
 											<b>Serviço: </b> 099878 - Banho e Tosa<br>
 											<b>Cliente:</b> 02345 - Gustavo<br>
 											<b>Pet:</b> Mel<br>
 										</div>
-										<div >
-											<img src="img/banho.jpg" name="serv"/>
+										<div class="container21">
+											<img src="img/banho.jpg" class="serv"/>
 										</div>
-									</div>
-								<input type="radio" name="horario" disabled> 14:00 am<br>
+									</div><br><br><br><br>
+								<input type="radio" name="horario"> 14:00 am<br>
 									<div class="reservado">
 									</div>
 								<input type="radio" name="horario"> 15:00 am<br>
@@ -181,6 +184,9 @@
 								<input type="radio" name="horario"> 18:00 am<br>
 						</fieldset>
 					</form>
+				</div>
+				<div class="container2">
+					<a href="#" class="button green">Agendar</a>				
 				</div>
 			</div>
 			</section>

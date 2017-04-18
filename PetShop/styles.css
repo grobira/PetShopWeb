@@ -40,10 +40,16 @@ section {
 	clear: both;
 }
 
-.container2-1 {
+.container21 {
 	float:left;
+	padding-left: 12px;
 }
 
+.container_agenda {
+	float: left;
+	padding-left: 12px;
+	width: 60%;
+}
 .container_login {
 	text-align: left;
 	padding: 12px;
@@ -58,11 +64,11 @@ section {
     box-sizing: border-box;
 }
 
-.container2-1 input[type=text]{
+.container21 input[type=text]{
 	width:300px;
 }
 
-.container2-2 {
+.container22 {
 	float: left;
 	text-align:left;
 	margin: 0px 50px 0px 50px; 
@@ -311,7 +317,7 @@ a {
 
 }
 
-.container2-2 img {
+.container22 img {
 	background-color: white;
 	width:140px; 
 	height:140px; 
@@ -384,6 +390,7 @@ a {
 }
 .animal img{
     width: 60%;
+	height: 60%;
     margin: 12px;
 }
 .animal h1{
@@ -406,8 +413,8 @@ fieldset {
 }
 
 .serv {
-	width: 2px;
-	height: 2px;
+	width: 60px;
+	height: 60px;
 	margin: 0px 5px 0px 5px; 
 }
 
