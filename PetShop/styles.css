@@ -44,6 +44,20 @@ section {
 	float:left;
 }
 
+.container_login {
+	text-align: left;
+	padding: 12px;
+}
+
+.container_login input[type=text],.container_login input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
 .container2-1 input[type=text]{
 	width:300px;
 }
@@ -107,6 +121,39 @@ a {
 }
 .green:hover{
 	background-color: #2F4F4F;
+}
+
+
+.butt_buy {
+	text-decoration: none;
+	display: inline-block;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	margin:5px;
+	padding:15px 20px;
+	border-radius:16px;
+    background-color: #32CD32;
+    color: #fff;
+    position: absolute;
+    right: 0; 
+    bottom: 0;
+}
+
+.butt_buy:hover{
+	background-color: #2F4F4F;
+}
+
+#carrinho {
+	padding: 2px;
+	height: 4%;
+	width: 4%;
+	border-style: solid;
+	border-radius: 10px;
+	border-width: 2px;
+	border-color: gray;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .tabs {
@@ -271,7 +318,7 @@ a {
 	border:1px solid #ccc;
 }
 
-textarea {
+.textarea {
 	font-size: 14px;
 	font-weight: normal;
 	resize: none;
@@ -290,13 +337,14 @@ textarea {
 
 .produto{
     width: 31%;
-    height: 300px;
+    height: 350px;
     margin-top: 25px;
     border: 1px solid #ddd;
     border-radius: 10px;
     float: left;
     margin-left: 10px;
     background-color: white;
+    position: relative;
 }
 .produto img{
     width: 60%;
