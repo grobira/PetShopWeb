@@ -49,7 +49,7 @@ section {
 }
 
 .container2-2 {
-	float:left;
+	float: left;
 	text-align:left;
 	margin: 0px 50px 0px 50px; 
 }
@@ -192,8 +192,7 @@ a {
 
 
 .month {
-	margin-left: 250px;
-    padding: 70px 25px;
+    padding: 10px 10px;
     background: #1abc9c;
     text-decoration: none;
 }
@@ -226,29 +225,27 @@ a {
 
 .weekdays {
     margin: 0;
-	margin-left: 250px;
-    padding: 10px 0;
+    padding: 5px 0;
     background-color: #ddd;
 }
 
 .weekdays li {
     display: inline-block;
-    width: 13.6%;
+    width: 12.6%;
     color: #666;
     text-align: center;
 }
 
 .days {
-    padding: 10px 0;
+    padding: 5px;
     background: #eee;
-    margin: 0;
-    margin-left: 250px;
+    margin:0;
 }
 
 .days li {
     list-style-type: none;
     display: inline-block;
-    width: 13.6%;
+    width: 12.6%;
     text-align: center;
     margin-bottom: 5px;
     font-size:12px;
@@ -262,18 +259,9 @@ a {
     color: white !important
 }
 
+.calendar {
+	width: 250px;
 
-@media screen and (max-width:720px) {
-    .weekdays li, .days li {width: 13.1%;}
-}
-
-@media screen and (max-width: 420px) {
-    .weekdays li, .days li {width: 12.5%;}
-    .days li .active {padding: 2px;}
-}
-
-@media screen and (max-width: 290px) {
-    .weekdays li, .days li {width: 12.2%;}
 }
 
 .container2-2 img {
@@ -354,5 +342,29 @@ textarea {
     font-size: 13px;
     margin: 8px;
 
+}
+
+.formagenda {
+	border: 1px solid #ddd;
+	background-color: white;
+	text-align: left;
+	padding: 10px;
+	border-radius: 7px;
+}
+
+fieldset {
+	border: 1px solid #ddd;
+	border-radius: 7px;
+}
+
+.serv {
+	width: 2px;
+	height: 2px;
+	margin: 0px 5px 0px 5px; 
+}
+
+.reservado {
+	font-size: 12px;
+	padding-left: 20px;
 }
 
