@@ -6,6 +6,8 @@
 <head>
 	<title>Pet Shop</title>
 	<link type="text/css" rel="stylesheet" href="styles.css" />
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/main.js" type="text/javascript"></script>
 </head>
 <body>
 	<header>
@@ -24,7 +26,7 @@
 		</div>
 	
 		<div class="item" action="#.php"> <h2>Gerenciamento de Administradores</h2> <hr>
-		<form class="form_" action="#.php">
+		<form id="form_cadAdmin">
 			<div class="container1">			
 				<p class="line">ID:</p> <br>
 				<p class="line">Nome:</p> <br>
@@ -33,10 +35,10 @@
 			</div>
 			
 				<div class="container21">
-					<input type="text" name="tid" value="xxxxxx"><br>
-					<input type="text" name="tnome" value="xxxx xxxx"><br>
-					<input type="text" name="ttelefone" value="(xx)xxxx-xxxx"><br>
-					<input type="email" name="temail" value="xxxxx@xxx.xx"><br>
+					<input type="text" id="tid" value="xxxxxx"><br>
+					<input type="text" id="tnome" value="xxxx xxxx"><br>
+					<input type="text" id="ttelefone" value="(xx)xxxx-xxxx"><br>
+					<input type="email" id="temail" value="xxxxx@xxx.xx"><br>
 				</div>	
 				<div class="container22">
 					<img src="img/user.png" alt="Photo">			
