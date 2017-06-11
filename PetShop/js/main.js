@@ -315,11 +315,17 @@ function loadServs(data){
 }
 
 function loadServsCB(data){
-	alert("ta aqui");
-	for(let i in data){
-		$("#cbServicos").append("<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"#\">" + data[i].name+"</a></li>");
+	for(let j in data){
+		$("#cbServ").append("<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\">" + data[j].name+ "</a></li>");
 	}
 }
+
+function loadPetsCB(data){
+	for(let j in data){
+		$("#cbPet").append("<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\">" + data[j].name+ "</a></li>");
+	}
+}
+
 
 function loadProducts(data){
 	$("#tid").val(data.idprod);
@@ -846,15 +852,6 @@ $(document).on("click", "#btn_save", ()=>{
 	}
 });
 
-$(document).on("click", "#cbServicos", ()=>{
-	alert("ta aqui");
-	loadServsCB(list[index]);
-});
-
-$(document).on("click", "#cbPet", ()=>{
-	alert("ta aqui");
-	//loadServsCB(list[index]);
-});
 //===========================================================================================================================
 // Ready do documento
 //===========================================================================================================================
@@ -912,11 +909,15 @@ $(document).ready(() => {
 		}
 		if ($("#cbServicos").is(':visible')){ //Se estiver na tela de produtos do cliente
 			readAll("servs", function(resp) {
-				index=0;
-				list=resp;
-				loadServsCB(list);
+			loadServsCB(resp);
 			});
 		}
+		if ($("#cbPetbtn").is(':visible')){ //Se estiver na tela de produtos do cliente
+			readAll("pets", function(resp) {
+			loadPetsCB(resp);
+			});
+		}
+
 	});
 });
 
