@@ -9,14 +9,13 @@
 			<link type="text/css" rel="stylesheet" href="styles.css" />
 			<link type="text/css" rel="stylesheet" href="js/bootstrap-datetimepicker.min.css" />
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-			<script type="text/javascript" src="js/jquery.js"></script>
   			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   			<script type="text/javascript" src="js/moment.js"></script>
   			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   			<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
   			<script type="text/javascript" src="js/collapse.js"></script>
   			<script type="text/javascript" src="js/transition.js"></script>
-			<script src="js/main.js" type="text/javascript"></script>>
+			<script type="text/javascript" src="js/main.js"></script>
 		</head>
 		<body>
 			<header>
@@ -59,40 +58,28 @@
 				<div class="container_agenda">
 					<form class="formagenda">
 						<fieldset>
-							<legend>Código do serviço:</legend>
-								<input type="text" name="tid" value="xxxxxx"><br>
-						</fieldset> <br>
+							<legend>Selecione o serviço:</legend>
+								<div class="dropdown">
+    								<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Serviço
+    								<span class="caret"></span></button>
+						    		<ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="#cbServicos">
+    								</ul>
+  								</div>
+						</fieldset>	<br>
 						<fieldset>
-							<legend>Código do seu pet:</legend>
-								<input type="text" name="tid" value="xxxxxx"><br>
+							<legend>Selecione o seu pet:</legend>
+								<div class="dropdown">
+    								<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"
+    								id="#cbPet">Pet
+    								<span class="caret"></span></button>
+						    		<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+    								</ul>
+  								</div>
 						</fieldset>	<br>					
-						<fieldset>
-    						<legend>Selecione o horário:</legend>
-								<input type="radio" name="horario"> 09:00 am<br>
-								<input type="radio" name="horario"> 10:00 am<br>
-								<input type="radio" name="horario"> 11:00 am<br>
-								<input type="radio" name="horario" disabled> 12:00 am (reservado)<br>
-									<div class="reservado">
-										<div class="container1">
-											<b>Serviço: </b> 099878 - Banho e Tosa<br>
-											<b>Cliente:</b> 02345 - Gustavo<br>
-											<b>Pet:</b> Mel<br>
-										</div>
-										<div class="container21">
-											<img src="img/banho.jpg" class="serv"/>
-										</div>
-									</div><br><br><br><br>
-								<input type="radio" name="horario"> 13:00 am<br>
-								<input type="radio" name="horario"> 14:00 am<br>
-								<input type="radio" name="horario"> 15:00 am<br>
-								<input type="radio" name="horario"> 16:00 am<br>
-								<input type="radio" name="horario"> 17:00 am<br>
-								<input type="radio" name="horario"> 18:00 am<br>
-						</fieldset>
 					</form>
 				</div>
 				<div class="container2">
-					<a href="#" class="button green">Agendar</a>				
+					<button type="button" class="btn btn-success">Agendar</button>			
 				</div>
 			</div>
 			</section>

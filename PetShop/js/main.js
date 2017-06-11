@@ -314,6 +314,13 @@ function loadServs(data){
 	$("#btn_save").prop("disabled", true);
 }
 
+function loadServsCB(data){
+	alert("ta aqui");
+	for(let i in data){
+		$("#cbServicos").append("<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" href=\"#\">" + data[i].name+"</a></li>");
+	}
+}
+
 function loadProducts(data){
 	$("#tid").val(data.idprod);
 	$("#tnome").val(data.name);
@@ -838,6 +845,16 @@ $(document).on("click", "#btn_save", ()=>{
 			alert("There is empty fields!");
 	}
 });
+
+$(document).on("click", "#cbServicos", ()=>{
+	alert("ta aqui");
+	loadServsCB(list[index]);
+});
+
+$(document).on("click", "#cbPet", ()=>{
+	alert("ta aqui");
+	//loadServsCB(list[index]);
+});
 //===========================================================================================================================
 // Ready do documento
 //===========================================================================================================================
@@ -891,6 +908,13 @@ $(document).ready(() => {
 				index=0;
 				list=resp;
 				loadPetsUser(list);
+			});
+		}
+		if ($("#cbServicos").is(':visible')){ //Se estiver na tela de produtos do cliente
+			readAll("servs", function(resp) {
+				index=0;
+				list=resp;
+				loadServsCB(list);
 			});
 		}
 	});
