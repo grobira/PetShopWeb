@@ -7,6 +7,11 @@
 		<head>
 			<title>Pet Shop</title>
 			<link type="text/css" rel="stylesheet" href="styles.css" />
+			<script src="js/jquery-1.11.3.min.js"></script>
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			<script src="js/main.js" type="text/javascript"></script>
 		</head>
 		<body>
 			<header>
@@ -33,55 +38,27 @@
 					</h2> <hr>
 
 					<div id="produtos">
-                            <div class="produto">
-                                <img src="img/golden.jpg"/>
-                                <h1>Ração Golden Adulto Special - 15kg</h1>
-                                <p>Ração deliciosa cheia de nutrientes para o seu cão.</p>
-                                <h2>R$104,90</h2>
-                                <p>Qtd:<input type="number" name="tqtde" value="0" width="20px"></p>
-								<a href="#" class="butt_buy buy">Comprar</a>
+                            <div class="produto" id="prod1">
+								<button type="button" class="btn btn-success" style="position: absolute;right: 0; bottom: 0;">Comprar</button>
                             </div>
-                            <div class="produto">
-                                <img src="img/royal.jpg"/>
-                                <h1>Ração Royal Canin Club Performance Adulto</h1>
-                                <p>Nutritiva e macia.</p>
-                                <h2>R$37,99</h2>
-                                <p>Qtd:<input type="number" name="tqtde" value="0" width="20px"></p>
-								<a href="#" class="butt_buy">Comprar</a>
+                            <div class="produto" id="prod2">
+								<button type="button" class="btn btn-success" style="position: absolute;right: 0; bottom: 0;">Comprar</button>
 							</div>
-                            <div class="produto">
-                                <img src="img/sache.jpg"/>
-		                        <h1>Alimento Úmido Pedigree Sachê Adulto Raças Pequenas Cordeiro ao Molho - 100g</h1>
-		                        <p>Feito com deliciosos pedaços de carne cozidos a vapor!</p>
-		                        <h2>R$1,99</h2>
-		                        <p>Qtd:<input type="number" name="tqtde" value="0" width="20px"></p>
-								<a href="#" class="butt_buy">Comprar</a>
+                            <div class="produto" id="prod3">
+								<button type="button" class="btn btn-success" style="position: absolute;right: 0; bottom: 0;">Comprar</button>
                             </div>
-                            <div class="produto">
-                                <img src="img/shampoo.jpg"/>
-		                        <h1>Shampoo Antipulgas Sanol - 500ml</h1>
-		                        <p></p>
-		                        <h2>R$12,50</h2>
-		                        <p>Qtd:<input type="number" name="tqtde" value="0" width="20px"></p>
-								<a href="#" class="butt_buy">Comprar</a>
+                            <div class="produto" id="prod4">
+								<button type="button" class="btn btn-success" style="position: absolute;right: 0; bottom: 0;">Comprar</button>
                             </div>
-                            <div class="produto">
-                                <img src="img/cama.jpg"/>
-                                <h1>Cama Azul Jully Bichinho Chic</h1>
-                                <p></p>
-                                <h2>R$88,00</h2>
-                                <p>Qtd:<input type="number" name="tqtde" value="0" width="20px"></p>
-								<a href="#" class="butt_buy">Comprar</a>
+                            <div class="produto" id="prod5">
+								
                             </div>
-                            <div class="produto">
-                                <img src="img/gaiola.jpg"/>
-                                <h1>Gaiola 2 Andares Chinchila</h1>
-                                <p>A nova geração de processadores da AMD Bulldozer já chegou! Baseados na arq..</p>
-                                <h2>R$266,00</h2>
-                                <p>Qtd:<input type="number" name="tqtde" value="0" width="20px"></p>
-								<a href="#" class="butt_buy">Comprar</a>
+                            <div class="produto" id="prod6">
+								<button type="button" class="btn btn-success" style="position: absolute;right: 0; bottom: 0;">Comprar</button>
                             </div>
                         </div>
+                    	<button type="button" id="btn_prod_back"class="btn btn-success" style="position: bottom;right: 0; bottom: 0;">Voltar</button>
+                        <button type="button" id="btn_prod_next"class="btn btn-success" style="position: bottom;right: 0; bottom: 0;">Proximo</button>
 				</div>
 			</section>
 			<footer>
