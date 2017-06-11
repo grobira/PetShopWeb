@@ -26,23 +26,36 @@ section {
 }
 
 .line {
-	margin: 5px 10px 0px 10px;
+	margin: 5px 5px 0px 5px;
 }
 
 .container1 {
-	padding-top: 5px;
+	padding-top: 0px;
 	float: left;
 }
 
 .container2 {
 	padding-top: 15px;
-	float:bottom;
+	position: auto;
+	float: bottom;
 	clear: both;
+}
+
+.container3 {
+	padding-top: 15px;
+	position: absolute;
+	clear: bottom;
 }
 
 .container21 {
 	float:left;
 	padding-left: 12px;
+}
+
+.container22 {
+	float: left;
+	text-align:left;
+	margin: 0px 50px 0px 50px; 
 }
 
 .container_agenda {
@@ -68,11 +81,7 @@ section {
 	width:300px;
 }
 
-.container22 {
-	float: left;
-	text-align:left;
-	margin: 0px 50px 0px 50px; 
-}
+
 
 .form_login {
 	margin: 0px 300px 0px 300px;
@@ -102,33 +111,7 @@ a {
  text-decoration:none; 
  color: black;
 } 
-
-.button{
-	text-decoration: none;
-	display: inline-block;
-	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	border-bottom: 1px solid rgba(0,0,0,0.25);
-	margin:5px;
-	padding:15px 20px;
-	border-radius:16px;
-}
-.button:hover{
-	background-color: #777;
-}
-.button:active{
-	top: 2px;
-	left:2px;
-}
-            
-.green{
-        background-color: #32CD32;
-        color: #fff;
-}
-.green:hover{
-	background-color: #2F4F4F;
-}
-
+tab
 
 .butt_buy {
 	text-decoration: none;
@@ -160,44 +143,6 @@ a {
 	border-color: gray;
 	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-}
-
-.tabs {
-  position: relative;   
-  min-height: 200px;
-  clear: both;
-}
-.tab {
-  float: left;
-}
-.tab label {
-  background: #eee; 
-  padding: 10px; 
-  border: 1px solid #ccc; 
-  margin-left: -1px; 
-  position: relative;
-  left: 1px; 
-}
-.tab [type=radio] {
-  display: none;   
-}
-.content {
-  position: absolute;
-  top: 26px;
-  left: 0;
-  background: white;
-  right: 0;
-  bottom: 0;
-  padding: 20px;
-  border: 1px solid #ccc; 
-}
-[type=radio]:checked ~ label {
-  background: white;
-  border-bottom: 1px solid white;
-  z-index: 2;
-}
-[type=radio]:checked ~ label ~ .content {
-  z-index: 1;
 }
 
 .leftmenu {
@@ -372,9 +317,6 @@ a {
     margin: 10px;
     font-size: 13px;
 }
-
-
-
 
 #animais{
     float: left;

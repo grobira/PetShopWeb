@@ -3,7 +3,9 @@ const dbname = "dbpetshop";
 //Users
 const usersData = [
 	{iduser: "000001", name: "Pedro Cardoso Stefanelli", login: "admin", password: "admin", phone: "(11)91111-4444", email: "kentucky@gmail.com", photo: "", type: "0"}, 
-	{iduser: "000002", name: "Rafael Silva", login: "elidio", password: "elidio", address: "R. Jacinto 1234 São Carlos - SP", phone: "(35)98765-1234", email: "elidio@gmail.com", photo: "", type: "1"} 
+	{iduser: "000002", name: "Rafael Silva", login: "elidio", password: "elidio", address: "R. Jacinto 1234 São Carlos - SP", phone: "(35)98765-1234", email: "elidio@gmail.com", photo: "", type: "1"}, 
+	{iduser: "000003", name: "Julia", login: "julia", password: "julia", address: "R. Lele 1234 São Carlos - SP", phone: "(35)98765-1234", email: "julia@gmail.com", photo: "", type: "1"},
+	{iduser: "000004", name: "Robira", login: "admin2", password: "admin2", phone: "(11)91111-4444", email: "vambira@gmail.com", photo: "", type: "0"} 
 ];
 
 //Pets
@@ -20,12 +22,12 @@ const servicesData = [
 
 //Products
 const productsData = [
-    {idprod: "300000", name: "Ração Golden Adulto Special - 15kg", description: "Ração deliciosa cheia de nutrientes para o seu cão.", price: 104.90, stock: 10,  photo: ""},
-    {idprod: "300001", name: "Ração Royal Canin Club Performance Adulto", description: "Nutritiva e macia.", price: 37.99, stock: 5, photo: ""},
-    {idprod: "300002", name: "Alimento Úmido Pedigree Sachê Adulto Raças Pequenas Cordeiro ao Molho - 100g", description: "Feito com deliciosos pedaços de carne cozidos a vapor!", price: 1.99, stock: 12, photo: ""},
-	{idprod: "300003", name: "Shampoo Antipulgas Sanol - 500ml", description: "Esse funciona!", price: 12.50, stock: 20, photo: ""},
-	{idprod: "300004", name: "Cama Azul Jully Bichinho Chic", description: "A mais confortavel!", price: 88.00, stock: 3, photo: ""},
-	{idprod: "300005", name: "Gaiola 2 Andares Chinchila", description: "A nova geração de processadores da AMD Bulldozer já chegou!", price: 266.00, stock: 3, photo: ""}
+    {idprod: "300000", name: "Ração Golden Adulto Special - 15kg", description: "Ração deliciosa cheia de nutrientes para o seu cão.", price: 104.90, stock: 10, sells: 20, photo: ""},
+    {idprod: "300001", name: "Ração Royal Canin Club Performance Adulto", description: "Nutritiva e macia.", price: 37.99, stock: 5, sells: 2, photo: ""},
+    {idprod: "300002", name: "Alimento Úmido Pedigree Sachê Adulto Raças Pequenas Cordeiro ao Molho - 100g", description: "Feito com deliciosos pedaços de carne cozidos a vapor!", price: 1.99, stock: 12, sells: 2, photo: ""},
+	{idprod: "300003", name: "Shampoo Antipulgas Sanol - 500ml", description: "Esse funciona!", price: 12.50, stock: 20, sells: 2, photo: ""},
+	{idprod: "300004", name: "Cama Azul Jully Bichinho Chic", description: "A mais confortavel!", price: 88.00, stock: 3, sells: 2, photo: ""},
+	{idprod: "300005", name: "Gaiola 2 Andares Chinchila", description: "A nova geração de processadores da AMD Bulldozer já chegou!", price: 266.00, stock: 3, sells: 2, photo: ""}
 ];
 
 //Sales
@@ -39,69 +41,77 @@ const schedulingData = [
 ];
 
 let db;
+var list = [];
+let index = 1;
 
-// -----------------------------------------------------------------------------------------------------------------------------------------------
+//===========================================================================================================================
 // Inicializando IndexedDB
+//===========================================================================================================================
+function LoadDB(callback) {
+	if("indexedDB" in window) {
+		console.log("IndexedDB is supported!!");
+		indexedDB.deleteDatabase(dbname);
+		let openRequest = indexedDB.open(dbname);
 
-if("indexedDB" in window) {
-    console.log("IndexedDB is supported!!");
-	let openRequest = indexedDB.open(dbname,1);
+		openRequest.onupgradeneeded = e => {
+			console.log("Upgrading...");
+			db = e.target.result;
 
-	openRequest.onupgradeneeded = e => {
-		console.log("Upgrading...");
-		db = e.target.result;
-
-		//Upgrading users
-        let objectStore = db.createObjectStore("users", {keyPath: "iduser"});
-		objectStore.createIndex("login", "login", { unique: true });
-        for (let i in usersData) {
-           objectStore.add(usersData[i]);
-        }
-		//Upgrading pets
-        objectStore = db.createObjectStore("pets", {keyPath: "idpet"});
-        for (i in petsData) {
-           objectStore.add(petsData[i]);
-        }
-		//Upgrading services
-        objectStore = db.createObjectStore("servs", {keyPath: "idserv"});
-        for (i in servicesData) {
-           objectStore.add(servicesData[i]);
-        }
-		//Upgrading products
-        objectStore = db.createObjectStore("products", {keyPath: "idprod"});
-        for (i in productsData) {
-           objectStore.add(productsData[i]);
-        }
-		//Upgrading sales
-        objectStore = db.createObjectStore("sales", {keyPath: "idsale"});
-        for (i in salesData) {
-           objectStore.add(salesData[i]);
-        }
-		//Upgrading scheduling
-        objectStore = db.createObjectStore("scheduling", {keyPath: "idsche"});
-        for (i in schedulingData) {
-           objectStore.add(schedulingData[i]);
-        }		
+			//Upgrading users
+		    let objectStore = db.createObjectStore("users", {keyPath: "iduser"});
+			objectStore.createIndex("login", "login", { unique: true });
+		    for (let i in usersData) {
+		       objectStore.add(usersData[i]);
+		    }
+			//Upgrading pets
+		    objectStore = db.createObjectStore("pets", {keyPath: "idpet"});
+		    for (i in petsData) {
+		       objectStore.add(petsData[i]);
+		    }
+			//Upgrading services
+		    objectStore = db.createObjectStore("servs", {keyPath: "idserv"});
+			objectStore.createIndex("idserv", "idserv", { unique: true });
+		    for (i in servicesData) {
+		       objectStore.add(servicesData[i]);
+		    }
+			//Upgrading products
+		    objectStore = db.createObjectStore("products", {keyPath: "idprod"});
+		    for (i in productsData) {
+		       objectStore.add(productsData[i]);
+		    }
+			//Upgrading sales
+		    objectStore = db.createObjectStore("sales", {keyPath: "idsale"});
+		    for (i in salesData) {
+		       objectStore.add(salesData[i]);
+		    }
+			//Upgrading scheduling
+		    objectStore = db.createObjectStore("scheduling", {keyPath: "idsche"});
+		    for (i in schedulingData) {
+		       objectStore.add(schedulingData[i]);
+		    }		
+		}
+		openRequest.onsuccess = e => {
+			db = openRequest.result;
+			console.log("success: "+ db);
+			callback(db);
+		}
+		openRequest.onerror = e => {
+			console.log("Error");
+			console.dir(e);
+		}
+	} else {
+		window.alert("PetShop requires IndexedDB and it isn't available in your browser :( ");
 	}
-	openRequest.onsuccess = e => {
-		db = openRequest.result;
-    	console.log("success: "+ db);
-	}
-	openRequest.onerror = e => {
-		console.log("Error");
-		console.dir(e);
-	}
-} else {
-    window.alert("PetShop requires IndexedDB and it isn't available in your browser :( ");
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//===========================================================================================================================
 //Manutenção IndexedDB
-function add(table) {
-   var request = db.transaction(["employee"], "readwrite")
-   .objectStore("employee")
-   .add({ id: "01", name: "prasad", age: 24, email: "prasad@tutorialspoint.com" });
-   
+//===========================================================================================================================
+function add(table,field) {
+	let request = db.transaction([table], "readwrite")
+	.objectStore(table)
+	.add(field);
+
    request.onsuccess = e => {
       alert("This "+table+" has been added to your database.");
    };
@@ -111,19 +121,30 @@ function add(table) {
    }
 }
 
+function updating(table,data){
+	let request = db.transaction([table], "readwrite").objectStore(table).put(data);
+	request.onerror = () => {
+ 		alert("Erro updating ");
+	};
+	request.onsuccess = () => {
+	 alert("Fields updated!");
+	};
+}
+
 function readAll(table,callback) {   
-    let req = db.transaction(table).objectStore(table).openCursor();
-	let list = [];
+    let req = db.transaction(table)
+	.objectStore(table).openCursor();
+	let auxList = [];
 
     req.onsuccess = e => {
         let cursor = e.target.result;
         if (cursor) {
-            list.push(cursor.value);
+            auxList.push(cursor.value);
             cursor.continue();
         }
     };
     
-    req.transaction.oncomplete = e => callback(list);
+    req.transaction.oncomplete = e => callback(auxList);
 }
 
 function read(table,id,callback) {
@@ -146,47 +167,602 @@ function read(table,id,callback) {
    };
 }
 
-function remove() {
-   var request = db.transaction(["employee"], "readwrite")
-   .objectStore("employee")
-   .delete("02");
+function remove(table,id) {
+	let request = db.transaction([table], "readwrite")
+   .objectStore(table)
+   .delete(id);
    
-   request.onsuccess = function(event) {
-      alert("prasad entry has been removed from your database.");
+   request.onsuccess = () => {
+      alert("This data has been removed from your database.");
    };
 }
 
-
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-//Outras funções
+//===========================================================================================================================
+//Funções de tela
+//===========================================================================================================================
 function login(){
-	readAll("users", function(resp) {  
+	readAll("users", function(resp) { 
+		let found=false;
 		for (let i in resp) {
 			if ((resp[i].login == $("#uname").val()) && (resp[i].password == $("#psw").val())) {
+				found=true;
 				if(resp[i].type == "0")
 					window.location.href="indexadmin.html"; 
 				else
 					window.location.href="indexclient.html";	
 			}		
 		}
+		if(!found) alert("Invalid login or password. Please try again.");	
 	});
 }
 
-$(document).ready(() => {
-	if ($("#form_cadClient").is(':visible')){
-		readAll("users", function(resp) {  
-			for (let i in resp) {
-				if(resp[i].type == "0"){ //Se é adm, removo
-					resp.splice(i,1);				
-				}
-			}
-			alert(resp.toString());	
-			//carrego os campos
+function loadClient(data){
+	$("#add_pets").empty();
+	//Carrego campos da pagina cadastro do cliente
+	$("#tid").val(data.iduser);
+	$("#tnome").val(data.name);
+	$("#tendereco").val(data.address);
+	$("#ttelefone").val(data.phone);
+	$("#temail").val(data.email);	
+	$("#tlogin").val(data.login);
+	$("#tpass").val(data.password);
+
+	$("#tid").prop("disabled", true);
+	$("#tnome").prop("disabled", true);
+	$("#tendereco").prop("disabled", true);
+	$("#ttelefone").prop("disabled", true);
+	$("#temail").prop("disabled", true);
+	$("#tlogin").prop("disabled", true);
+	$("#tpass").prop("disabled", true);
+
+	$("#btn_back").prop("disabled", false);
+	$("#btn_next").prop("disabled", false);
+	$("#btn_edit").prop("disabled", false);
+	$("#btn_del").prop("disabled", false);
+	$("#btn_new").prop("disabled", false);
+	$("#btn_cancel").prop("disabled", true);
+	$("#btn_save").prop("disabled", true);
+	
+	//Mostra pets na tela
+	readAll("pets", function(resp1){
+		if (resp1 != null){
+			$("#add_pets").append("<ul id=\"nav_pets\" class=\"nav nav-tabs\"> </ul>  <div id=\"tab_pets\" class=\"tab-content\"> </div>");
+
+			let num_pets = 1;			
+			for (let j in resp1) {
+				str = "";
+				if (resp1[j].iduser == data.iduser){ //Se for um pet desse usuario
+					if (num_pets == 1){ //Se for o primeiro pet, vai estar ativado					
+						$("#nav_pets").append("<li class=\"active\"> <a data-toggle=\"tab\" href=\"#pet"+num_pets+"\">Pet"+num_pets+"</a></li>");
+						str = "<div id=\"pet"+num_pets+"\" class=\"tab-pane fade in active\">";
+					}
+					else{
+						$("#nav_pets").append("<li> <a data-toggle=\"tab\" href=\"#pet"+num_pets+"\">Pet"+num_pets+"</a></li>");
+						str = "<div id=\"pet"+num_pets+"\" class=\"tab-pane fade\">";						
+					}
+					str = str + "<div class=\"content\">"+
+										"<div class=\"container1\">"+			
+												"<p class=\"line\">ID:</p> <br>"+
+												"<p class=\"line\">Nome:</p> <br>"+
+												"<p class=\"line\">Raça:</p> <br>"+
+												"<p class=\"line\">Idade:</p> <br>"+
+											"</div>"+
+											"<div class=\"container21\">"+
+												"<input type=\"text\" name=\"tidpet"+num_pets+"\" value=\""+resp1[j].idpet+"\"><br>"+
+												"<input type=\"text\" name=\"tnomepet"+num_pets+"\" value=\""+resp1[j].name+"\"><br>"+
+												"<input type=\"text\" name=\"traca"+num_pets+"\" value=\""+resp1[j].breed+"\"><br>"+
+												"<input type=\"number\" name=\"tidade"+num_pets+"\" value=\""+resp1[j].age+"\"><br>"+
+											"</div>	"+
+											"<div class=\"container22\">"+
+												"<img src=\"img/pet.png\" alt=\"Photo\">	"+		
+											"</div><br>"+
+									   "</div></div></div>";
+					$("#tab_pets").append(str);
+					num_pets = num_pets+1; 
+				}//if	
+			}//for
+		}//if
 	});
+}
+
+function loadAdmin(data){
+	//Carrego campos da pagina cadastro do admin
+	$("#tid").val(data.iduser);
+	$("#tnome").val(data.name);
+	$("#ttelefone").val(data.phone);
+	$("#temail").val(data.email);	
+	$("#tlogin").val(data.login);	
+	$("#tpass").val(data.password);	
+
+	$("#tid").prop("disabled", true);
+	$("#tnome").prop("disabled", true);
+	$("#ttelefone").prop("disabled", true);
+	$("#temail").prop("disabled", true);
+	$("#tlogin").prop("disabled", true);
+	$("#tpass").prop("disabled", true);
+
+	$("#btn_back").prop("disabled", false);
+	$("#btn_next").prop("disabled", false);
+	$("#btn_edit").prop("disabled", false);
+	$("#btn_del").prop("disabled", false);
+	$("#btn_new").prop("disabled", false);
+	$("#btn_cancel").prop("disabled", true);
+	$("#btn_save").prop("disabled", true);
+}
+
+function loadServs(data){
+	$("#tid").val(data.idserv);
+	$("#tnome").val(data.name);
+	$("#tdescricao").val(data.description);
+	$("#tpreco").val(data.price);	
+
+	$("#tid").prop("disabled", true);
+	$("#tnome").prop("disabled", true);
+	$("#tdescricao").prop("disabled", true);
+	$("#tpreco").prop("disabled", true);
+
+	$("#btn_back").prop("disabled", false);
+	$("#btn_next").prop("disabled", false);
+	$("#btn_edit").prop("disabled", false);
+	$("#btn_del").prop("disabled", false);
+	$("#btn_new").prop("disabled", false);
+	$("#btn_cancel").prop("disabled", true);
+	$("#btn_save").prop("disabled", true);
+}
+
+function loadProducts(data){
+	$("#tid").val(data.idprod);
+	$("#tnome").val(data.name);
+	$("#tdescricao").val(data.description);
+	$("#tpreco").val(data.price);	
+	$("#tqtde").val(data.stock);
+	$("#tqtdv").val(data.sells);
+
+	$("#tid").prop("disabled", true);
+	$("#tnome").prop("disabled", true);
+	$("#tdescricao").prop("disabled", true);
+	$("#tpreco").prop("disabled", true);
+	$("#tqtde").prop("disabled", true);
+	$("#tqtdv").prop("disabled", true);
+
+	$("#btn_back").prop("disabled", false);
+	$("#btn_next").prop("disabled", false);
+	$("#btn_edit").prop("disabled", false);
+	$("#btn_del").prop("disabled", false);
+	$("#btn_new").prop("disabled", false);
+	$("#btn_cancel").prop("disabled", true);
+	$("#btn_save").prop("disabled", true);
+}
+
+//===========================================================================================================================
+// Funções botão gerenciamento (novo,edit,salvar,etc...)
+//===========================================================================================================================
+$(document).on("click", "#btn_back", ()=>{
+	if ($("#form_cadClient").is(':visible')){
+		let i=index;		
+		do { //Enquanto não for cliente
+			i = i-1;
+			if (i<0) i=list.length-1;
+		} while(list[i].type != "1");
+		index=i;
+		loadClient(list[i]);		
 	}
 	if ($("#form_cadAdmin").is(':visible')){
-		alert("oi");
+		let i=index;			
+		do { //Enquanto não for adm
+			i = i-1;
+			if (i<0) i=list.length-1;
+		} while(list[i].type != "0");
+		index=i;
+		loadAdmin(list[i]);
+	}	
+	if ($("#form_CadServicos").is(':visible')){
+		index = index -1;
+		if (index < 0) index = list.length-1;
+		loadServs(list[index]);
+	}
+	if ($("#form_CadProdutos").is(':visible')){
+		index = index -1;
+		if (index < 0) index = list.length-1;
+		loadProducts(list[index]);
 	}
 });
+
+$(document).on("click", "#btn_next", ()=>{
+	if ($("#form_cadClient").is(':visible')){
+		let i=index;				
+		do { //Enquanto não for cliente
+			i = i+1;
+			if(i>list.length-1) i=0;
+		} while(list[i].type != "1");
+		index=i;
+		loadClient(list[i]);	
+	}
+	if ($("#form_cadAdmin").is(':visible')){
+		let i=index;			
+		do { //Enquanto não for adm
+			i = i+1;
+			if(i>list.length-1) i=0;
+		} while(list[i].type != "0");
+		index=i;
+		loadAdmin(list[i]);
+	}
+	if ($("#form_CadServicos").is(':visible')){
+		index = index +1;
+		if (index >= list.length) index = 0;
+		loadServs(list[index]);
+	}
+	if ($("#form_CadProdutos").is(':visible')){
+		index = index +1;
+		if (index >= list.length) index = 0;
+		loadProducts(list[index]);
+	}
+});
+$(document).on("click", "#btn_edit", ()=>{
+	if ($("#form_cadClient").is(':visible')){
+		$("#tid").prop("disabled", true);
+		$("#tnome").prop("disabled", false);
+		$("#tendereco").prop("disabled", false);
+		$("#ttelefone").prop("disabled", false);
+		$("#temail").prop("disabled", false);
+		$("#tlogin").prop("disabled", false);
+		$("#tpass").prop("disabled", false);
+	}
+	if ($("#form_cadAdmin").is(':visible')){
+		$("#tid").prop("disabled", true);
+		$("#tnome").prop("disabled", false);
+		$("#ttelefone").prop("disabled", false);
+		$("#temail").prop("disabled", false);
+		$("#tlogin").prop("disabled", false);
+		$("#tpass").prop("disabled", false);
+	}
+	if ($("#form_CadServicos").is(':visible')){
+		$("#tid").prop("disabled", true);
+		$("#tnome").prop("disabled", false);
+		$("#tdescricao").prop("disabled", false);
+		$("#tpreco").prop("disabled", false);
+	}
+	if ($("#form_CadProdutos").is(':visible')){
+		$("#tid").prop("disabled", true);
+		$("#tnome").prop("disabled", false);
+		$("#tdescricao").prop("disabled", false);
+		$("#tpreco").prop("disabled", false);
+		$("#tqtde").prop("disabled", false);
+		$("#tqtdv").prop("disabled", false);
+	}
+	$("#btn_back").prop("disabled", true);
+	$("#btn_next").prop("disabled", true);
+	$("#btn_edit").prop("disabled", true);
+	$("#btn_del").prop("disabled", true);
+	$("#btn_new").prop("disabled", true);
+	$("#btn_cancel").prop("disabled", false);
+	$("#btn_save").prop("disabled", false);
+});
+$(document).on("click", "#btn_new", ()=>{
+	if ($("#form_cadClient").is(':visible')){
+		$("#tid").val("xxxxxx");
+		$("#tnome").val("");
+		$("#tendereco").val("");
+		$("#ttelefone").val("(xx)xxxx-xxxx");
+		$("#temail").val("");
+		$("#tlogin").val("");
+		$("#tpass").val("");
+		$("#tid").prop("disabled", false);
+		$("#tnome").prop("disabled", false);
+		$("#tendereco").prop("disabled", false);
+		$("#ttelefone").prop("disabled", false);
+		$("#temail").prop("disabled", false);
+		$("#tlogin").prop("disabled", false);
+		$("#tpass").prop("disabled", false);
+		$("#add_pets").empty();
+	}
+	if ($("#form_cadAdmin").is(':visible')){
+		$("#tid").val("xxxxxx");
+		$("#tnome").val("");
+		$("#ttelefone").val("(xx)xxxx-xxxx");
+		$("#temail").val("");
+		$("#tlogin").val("");
+		$("#tpass").val("");
+		$("#tid").prop("disabled", false);
+		$("#tnome").prop("disabled", false);
+		$("#ttelefone").prop("disabled", false);
+		$("#temail").prop("disabled", false);
+		$("#tlogin").prop("disabled", false);
+		$("#tpass").prop("disabled", false);
+	}
+	if ($("#form_CadServicos").is(':visible')){
+		$("#tid").val("xxxxxx");
+		$("#tnome").val("");
+		$("#tdescricao").val("");
+		$("#tpreco").val("0.00");	
+		$("#tid").prop("disabled", false);
+		$("#tnome").prop("disabled", false);
+		$("#tdescricao").prop("disabled", false);
+		$("#tpreco").prop("disabled", false);
+	}
+	if ($("#form_CadProdutos").is(':visible')){
+		$("#tid").val("xxxxxx");
+		$("#tnome").val("");
+		$("#tdescricao").val("");
+		$("#tpreco").val(0.0);	
+		$("#tqtde").val(00);
+		$("#tqtdv").val(00);
+		$("#tid").prop("disabled", false);
+		$("#tnome").prop("disabled", false);
+		$("#tdescricao").prop("disabled", false);
+		$("#tpreco").prop("disabled", false);
+		$("#tqtde").prop("disabled", false);
+		$("#tqtdv").prop("disabled", false);
+	}
+	$("#btn_back").prop("disabled", true);
+	$("#btn_next").prop("disabled", true);
+	$("#btn_edit").prop("disabled", true);
+	$("#btn_del").prop("disabled", true);
+	$("#btn_new").prop("disabled", true);
+	$("#btn_cancel").prop("disabled", false);
+	$("#btn_save").prop("disabled", false);
+});
+$(document).on("click", "#btn_del", ()=>{
+	if ($("#form_cadAdmin").is(':visible') || ($("#form_cadClient").is(':visible')))
+		remove("users",$("#tid").val());
+	if ($("#form_CadServicos").is(':visible'))
+		remove("servs",$("#tid").val());
+	if ($("#form_CadProdutos").is(':visible'))
+		remove("products",$("#tid").val());
+	list.splice(index, 1);
+	$("#btn_back").prop("disabled", false);
+	$("#btn_next").prop("disabled", false);
+	$("#btn_edit").prop("disabled", false);
+	$("#btn_del").prop("disabled", false);
+	$("#btn_new").prop("disabled", false);
+	$("#btn_cancel").prop("disabled", true);
+	$("#btn_save").prop("disabled", true);
+	$("#btn_back").trigger('click');	
+});
+$(document).on("click", "#btn_cancel", ()=>{
+	if ($("#form_cadClient").is(':visible')){
+		$("#add_pets").empty();
+		loadClient(list[index]);
+	}
+	if ($("#form_cadAdmin").is(':visible')){
+		loadAdmin(list[index]);
+	}
+	if ($("#form_CadServicos").is(':visible')){
+		loadServs(list[index]);
+	}
+	if ($("#form_CadProdutos").is(':visible')){
+		loadProducts(list[index]);	
+	}
+	$("#btn_back").prop("disabled", false);
+	$("#btn_next").prop("disabled", false);
+	$("#btn_edit").prop("disabled", false);
+	$("#btn_del").prop("disabled", false);
+	$("#btn_new").prop("disabled", false);
+	$("#btn_cancel").prop("disabled", true);
+	$("#btn_save").prop("disabled", true);
+});
+$(document).on("click", "#btn_save", ()=>{
+	if ($("#form_cadClient").is(':visible')){
+		if ($("#tid").attr("disabled")){ //So it's an updating
+			list[index].name =  $("#tnome").val();
+			list[index].address =  $("#tendereco").val();
+			list[index].phone =  $("#ttelefone").val();
+			list[index].email =  $("#temail").val();
+			list[index].login =  $("#tlogin").val();
+			list[index].password =  $("#tpass").val();
+			updating("users",list[index]);
+			$("#tid").prop("disabled", true);
+			$("#tnome").prop("disabled", true);
+			$("#tendereco").prop("disabled", true);
+			$("#ttelefone").prop("disabled", true);
+			$("#temail").prop("disabled", true);
+			$("#tlogin").prop("disabled", true);
+			$("#tpass").prop("disabled", true);
+			$("#btn_back").prop("disabled", false);
+			$("#btn_next").prop("disabled", false);
+			$("#btn_edit").prop("disabled", false);
+			$("#btn_del").prop("disabled", false);
+			$("#btn_new").prop("disabled", false);
+			$("#btn_cancel").prop("disabled", true);
+			$("#btn_save").prop("disabled", true);	
+		}
+		else {
+			if(($("#tid").val()!= "") && ($("#tnome").val()!= "") && ($("#tendereco").val()!="")&&($("#ttelefone").val()!="")&&($("#temail").val()!="")){
+				list.push({iduser: $("#tid").val(), name: $("#tnome").val(), login: $("#tlogin").val(), password: $("#tpass").val(), address: $("#tendereco").val(), phone: $("#ttelefone").val(), email: $("#temail").val(), photo: "", type: "1"});	
+				index = list.length-1;			
+				add("users",list[index]);
+				$("#tid").prop("disabled", true);
+				$("#tnome").prop("disabled", true);
+				$("#tendereco").prop("disabled", true);
+				$("#ttelefone").prop("disabled", true);
+				$("#temail").prop("disabled", true);
+				$("#btn_back").prop("disabled", false);
+				$("#btn_next").prop("disabled", false);
+				$("#btn_edit").prop("disabled", false);
+				$("#btn_del").prop("disabled", false);
+				$("#btn_new").prop("disabled", false);
+				$("#btn_cancel").prop("disabled", true);
+				$("#btn_save").prop("disabled", true);	
+			}
+			else
+				alert("There is empty fields!");
+		}
+	}
+	if ($("#form_cadAdmin").is(':visible')){
+		if ($("#tid").attr("disabled")){ //So it's an updating
+			list[index].name =  $("#tnome").val();
+			list[index].phone =  $("#ttelefone").val();
+			list[index].email =  $("#temail").val();
+			list[index].login =  $("#tlogin").val();
+			list[index].password =  $("#tpass").val();
+			updating("users",list[index]);
+			$("#tid").prop("disabled", true);
+			$("#tnome").prop("disabled", true);
+			$("#ttelefone").prop("disabled", true);
+			$("#temail").prop("disabled", true);
+			$("#tlogin").prop("disabled", true);
+			$("#tpass").prop("disabled", true);
+			$("#btn_back").prop("disabled", false);
+			$("#btn_next").prop("disabled", false);
+			$("#btn_edit").prop("disabled", false);
+			$("#btn_del").prop("disabled", false);
+			$("#btn_new").prop("disabled", false);
+			$("#btn_cancel").prop("disabled", true);
+			$("#btn_save").prop("disabled", true);	
+		}
+		else {
+			if(($("#tid").val()!= "") && ($("#tnome").val()!= "") &&($("#ttelefone").val()!="")&&($("#temail").val()!="")){
+				list.push({iduser: $("#tid").val(), name: $("#tnome").val(), login: $("#tlogin").val(), password: $("#tpass").val(), phone: $("#ttelefone").val(), email: $("#temail").val(), photo: "", type: "0"});	
+				index = list.length-1;			
+				add("users",list[index]);
+				$("#tid").prop("disabled", true);
+				$("#tnome").prop("disabled", true);
+				$("#ttelefone").prop("disabled", true);
+				$("#temail").prop("disabled", true);
+				$("#tlogin").prop("disabled", true);
+				$("#tpass").prop("disabled", true);
+				$("#btn_back").prop("disabled", false);
+				$("#btn_next").prop("disabled", false);
+				$("#btn_edit").prop("disabled", false);
+				$("#btn_del").prop("disabled", false);
+				$("#btn_new").prop("disabled", false);
+				$("#btn_cancel").prop("disabled", true);
+				$("#btn_save").prop("disabled", true);	
+			}
+			else
+				alert("There is empty fields!");
+		}
+	}
+	if ($("#form_CadServicos").is(':visible')){
+		if ($("#tid").attr("disabled")){ //So it's an updating
+			list[index].name =  $("#tnome").val();
+			list[index].description =  $("#tdescricao").val();
+			list[index].price =  $("#tpreco").val();
+			updating("servs",list[index]);
+			$("#tid").prop("disabled", true);
+			$("#tnome").prop("disabled", true);
+			$("#tdescricao").prop("disabled", true);
+			$("#tpreco").prop("disabled", true);
+			$("#btn_back").prop("disabled", false);
+			$("#btn_next").prop("disabled", false);
+			$("#btn_edit").prop("disabled", false);
+			$("#btn_del").prop("disabled", false);
+			$("#btn_new").prop("disabled", false);
+			$("#btn_cancel").prop("disabled", true);
+			$("#btn_save").prop("disabled", true);	
+		}
+		else {
+			if(($("#tid").val()!= "") && ($("#tnome").val()!= "") &&($("#tdescricao").val()!="")&&($("#tprice").val()!="")){
+				list.push({idserv: $("#tid").val(), name: $("#tnome").val(), description: $("#tdescricao").val(), price: $("#tpreco").val()});	
+				index = list.length-1;			
+				add("servs",list[index]);
+				$("#tid").prop("disabled", true);
+				$("#tnome").prop("disabled", true);
+				$("#tdescricao").prop("disabled", true);
+				$("#tpreco").prop("disabled", true);
+				$("#btn_back").prop("disabled", false);
+				$("#btn_next").prop("disabled", false);
+				$("#btn_edit").prop("disabled", false);
+				$("#btn_del").prop("disabled", false);
+				$("#btn_new").prop("disabled", false);
+				$("#btn_cancel").prop("disabled", true);
+				$("#btn_save").prop("disabled", true);	
+			}
+			else
+				alert("There is empty fields!");
+		}
+	}
+	if ($("#form_CadProdutos").is(':visible')){
+		if ($("#tid").attr("disabled")){ //So it's an updating
+			list[index].name =  $("#tnome").val();
+			list[index].description =  $("#tdescricao").val();
+			list[index].price =  $("#tpreco").val();
+			list[index].stock =  $("#tqtde").val();
+			list[index].sells =  $("#tqtdv").val();
+			updating("products",list[index]);
+			$("#tid").prop("disabled", true);
+			$("#tnome").prop("disabled", true);
+			$("#tdescricao").prop("disabled", true);
+			$("#tpreco").prop("disabled", true);
+			$("#tqtde").prop("disabled", true);
+			$("#tqtdv").prop("disabled", true);
+			$("#btn_back").prop("disabled", false);
+			$("#btn_next").prop("disabled", false);
+			$("#btn_edit").prop("disabled", false);
+			$("#btn_del").prop("disabled", false);
+			$("#btn_new").prop("disabled", false);
+			$("#btn_cancel").prop("disabled", true);
+			$("#btn_save").prop("disabled", true);	
+		}
+		else {
+			if(($("#tid").val()!= "") && ($("#tnome").val()!= "") &&($("#tdescricao").val()!="")&&($("#tprice").val()!="")){
+				list.push({idprod: $("#tid").val(), name: $("#tnome").val(), description: $("#tdescricao").val(), price: $("#tpreco").val(), stock: $("#tqtde").val(), sells: $("#tqtdv").val()});	
+				index = list.length-1;			
+				add("products",list[index]);
+				$("#tid").prop("disabled", true);
+				$("#tnome").prop("disabled", true);
+				$("#tdescricao").prop("disabled", true);
+				$("#tpreco").prop("disabled", true);
+				$("#tqtde").prop("disabled", true);
+				$("#tqtdv").prop("disabled", true);
+				$("#btn_back").prop("disabled", false);
+				$("#btn_next").prop("disabled", false);
+				$("#btn_edit").prop("disabled", false);
+				$("#btn_del").prop("disabled", false);
+				$("#btn_new").prop("disabled", false);
+				$("#btn_cancel").prop("disabled", true);
+				$("#btn_save").prop("disabled", true);	
+			}
+			else
+				alert("There is empty fields!");
+		}
+	}
+});
+//===========================================================================================================================
+// Ready do documento
+//===========================================================================================================================
+$(document).ready(() => {
+	LoadDB(() => { //Carrega o "banco"
+		if ($("#form_cadClient").is(':visible')){ //Se estiver na tela de cadastro de cliente
+			readAll("users", function(resp) { 
+				let i=0;			
+				while(resp[i].type != "1"){ //Enquanto não for cliente
+					i = i+1;			
+				}
+				index=i;				
+				loadClient(resp[i]); 
+				list=resp;
+			});
+		}
+		if ($("#form_cadAdmin").is(':visible')){ //Se estiver na tela de cadastro de admin
+			readAll("users", function(resp) {  
+				let i=0;			
+				while(resp[i].type != "0"){ //Enquanto não for admin
+					i = i+1;			
+				}
+				index=i;
+				loadAdmin(resp[i]);
+				list=resp;
+			});
+		}
+		if ($("#form_CadServicos").is(':visible')){ //Se estiver na tela de cadastro de servicos
+			readAll("servs", function(resp) {
+				index=0;
+				list=resp;
+				loadServs(list[index]);
+			});
+		}
+		if ($("#form_CadProdutos").is(':visible')){ //Se estiver na tela de cadastro de servicos
+			readAll("products", function(resp) {
+				index=0;
+				list=resp;
+				loadProducts(list[index]);
+			});
+		}
+	});
+});
+
+
+
+
 
