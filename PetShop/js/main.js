@@ -23,10 +23,10 @@ const servicesData = [
 
 //Products
 const productsData = [
-    {idprod: "300000", name: "Ração Golden Adulto Special - 15kg", description: "Ração deliciosa cheia de nutrientes para o seu cão.", price: 104.90, stock: 10, sells: 20, photo: "img/golden.jpg"},
-    {idprod: "300001", name: "Ração Royal Canin Club Performance Adulto", description: "Nutritiva e macia.", price: 37.99, stock: 5, sells: 2, photo: "img/royal.jpg"},
-    {idprod: "300002", name: "Alimento Úmido Pedigree Sachê Adulto Raças Pequenas Cordeiro ao Molho - 100g", description: "Feito com deliciosos pedaços de carne cozidos a vapor!", price: 1.99, stock: 12, sells: 2, photo: "img/sache.jpg"},
-	{idprod: "300003", name: "Shampoo Antipulgas Sanol - 500ml", description: "Esse funciona!", price: 12.50, stock: 20, sells: 2, photo: "img/shampoo.jpg"},
+    {idprod: "300000", name: "Ração Golden - 15kg", description: "Ração deliciosa cheia de nutrientes para o seu cão.", price: 104.90, stock: 10, sells: 20, photo: "img/golden.jpg"},
+    {idprod: "300001", name: "Ração Royal Canin", description: "Nutritiva e macia.", price: 37.99, stock: 5, sells: 2, photo: "img/royal.jpg"},
+    {idprod: "300002", name: "Alimento Úmido Pedigree", description: "Feito com deliciosos pedaços de carne cozidos a vapor!", price: 1.99, stock: 12, sells: 2, photo: "img/sache.jpg"},
+	{idprod: "300003", name: "Shampoo Antipulgas", description: "Esse funciona!", price: 12.50, stock: 20, sells: 2, photo: "img/shampoo.jpg"},
 	{idprod: "300004", name: "Cama Azul Jully Bichinho Chic", description: "A mais confortavel!", price: 88.00, stock: 3, sells: 2, photo: "img/cama.jpg"},
 	{idprod: "300005", name: "Gaiola 2 Andares Chinchila", description: "A nova geração de processadores da AMD Bulldozer já chegou!", price: 266.00, stock: 3, sells: 2, photo: "img/gaiola.jpg"}
 ];
@@ -351,6 +351,12 @@ function loadProducts(data){
 	$("#btn_new").prop("disabled", false);
 	$("#btn_cancel").prop("disabled", true);
 	$("#btn_save").prop("disabled", true);
+}
+
+function loadProductsRelatorio(data){
+	for(let j in data){
+		$("#txtrel").append(data[j].idprod + "\t" + data[j].name + "\t\t\t" + data[j].price + "\t\t" + data[j].stock+ "\t" + data[j].sells +"\n");
+	}
 }
 
 function loadProductsStore(data, n){
@@ -904,21 +910,26 @@ $(document).ready(() => {
 				loadProductsStore(list, index);
 			});
 		}
-		if ($("#animais").is(':visible')){ //Se estiver na tela de produtos do cliente
+		if ($("#animais").is(':visible')){ 
 			readAll("pets", function(resp) {
 				index=0;
 				list=resp;
 				loadPetsUser(list);
 			});
 		}
-		if ($("#cbServicos").is(':visible')){ //Se estiver na tela de produtos do cliente
+		if ($("#cbServicos").is(':visible')){ //Se estiver na ela de agendamento
 			readAll("servs", function(resp) {
-			loadServsCB(resp);
+				loadServsCB(resp);
 			});
 		}
-		if ($("#cbPetbtn").is(':visible')){ //Se estiver na tela de produtos do cliente
+		if ($("#cbPetbtn").is(':visible')){ //Se estiver na tela de agendamento
 			readAll("pets", function(resp) {
-			loadPetsCB(resp);
+				loadPetsCB(resp);
+			});
+		}
+		if ($("#relatorio").is(':visible')){
+			readAll("products", function(resp){
+				loadProductsRelatorio(resp);
 			});
 		}
 
