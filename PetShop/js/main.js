@@ -31,14 +31,14 @@ const productsData = [
 	{idprod: "300005", name: "Gaiola 2 Andares Chinchila", description: "A nova geração de processadores da AMD Bulldozer já chegou!", price: 266.00, stock: 3, sells: 2, photo: "img/gaiola.jpg"}
 ];
 
-//Sales
-const salesData = [
-	{ idsale: "400000", iduser: 7, items: "[['300000', 'Ração Golden Adulto Special - 15kg', '104.90', '1']]", servs: "[['200001', 'Banho e Tosa', '12.00', '500000']]", total: 139.90 }
+//Venda de produtos
+const salesProducts = [
+	{ idsalep: "400000", iduser: "000002", idproduto: "300001", qtde: "2", total: 139.90 }
 ];
 
-//Scheduling
-const schedulingData = [
-    { idsche: "500000", iduser: "000002", idpet: 8931, idService: 1, total: 11.00, totalPortions: 1, dateAppointment: new Date(2017, 6, 3, 8)}
+//Venda de servicos
+const salesServices = [
+	{ idsales: "500000", iduser: "000002", idpet: "100000", idserv: "200000", total: 11.00, timeService: "14:00", dateService: "13/06/2017"}
 ];
 
 let db;
@@ -81,15 +81,15 @@ function LoadDB(callback) {
 		    for (i in productsData) {
 		       objectStore.add(productsData[i]);
 		    }
-			//Upgrading sales
-		    objectStore = db.createObjectStore("sales", {keyPath: "idsale"});
-		    for (i in salesData) {
-		       objectStore.add(salesData[i]);
+			//Upgrading sales services
+		    objectStore = db.createObjectStore("saleservice", {keyPath: "idsales"});
+		    for (i in salesServices) {
+		       objectStore.add(salesServices[i]);
 		    }
-			//Upgrading scheduling
-		    objectStore = db.createObjectStore("scheduling", {keyPath: "idsche"});
-		    for (i in schedulingData) {
-		       objectStore.add(schedulingData[i]);
+			//Upgrading sales products
+		    objectStore = db.createObjectStore("saleproducts", {keyPath: "idsalep"});
+		    for (i in salesProducts) {
+		       objectStore.add(salesProducts[i]);
 		    }		
 		}
 		openRequest.onsuccess = e => {
@@ -789,7 +789,8 @@ $(document).on("click", "#btn_save", ()=>{
 });
 
 $(document).on("click", "#btn_agenda", ()=>{
-	alert($('#datetimepicker12').datetimepicker());
+	alert($('#agendaData').val());
+	//Procuro 
 });
 
 
