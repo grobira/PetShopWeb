@@ -38,42 +38,36 @@
 
 				<div class="item">
 				<h2>Agendamento de serviços </h2> <hr>
-				<div style="overflow:hidden;">
- 					<div class="form-group">
-        				<div class="row">
-            				<div class="col-md-8">
-			                <div id="datetimepicker12"></div>
-		        		    </div>
-        				</div>
-		    		</div>
-    				<script type="text/javascript">
-				        $(function () {
-            				$("#datetimepicker12").datetimepicker({
-			                inline: true,
-            	    		sideBySide: true,
-							format: 'DD/MM/YYYY'
-			            });
-        			});
-				    </script>
-				</div>
 				<div class="container_agenda">
 					<form class="formagenda">
 						<fieldset>
+							<legend>Selecione a data:</legend>
+							<div class="container">
+								<div class="row">
+									<div class='col-sm-6'>
+										<div class="form-group">
+											<div class='input-group date' id='datetimepicker1'>
+												<input type='hidden' class="form-control" />
+											</div>
+										</div>
+									</div>
+									<script type="text/javascript">
+										$(() => {
+											$('#datetimepicker1').datetimepicker({
+												inline: true,
+												format: 'DD/MM/YYYY'});
+										});
+									</script>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
 							<legend>Selecione o serviço:</legend>
-								<div class="dropdown">
-    								<button id="cbServicos" class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Serviço
-    								<span class="caret"></span></button>
-    								<ul id="cbServ" class="dropdown-menu"  role="menu" aria-labelledby="menu1"></ul>
-  								</div>
+								<select id="cbServicos"></select>
 						</fieldset>	<br>
 						<fieldset>
 							<legend>Selecione o seu pet:</legend>
-								<div class="dropdown">
-    								<button id="cbPetbtn" class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"
-    								>Pet
-    								<span class="caret"></span></button>
-    								<ul id="cbPet" class="dropdown-menu"  role="menu" aria-labelledby="menu1"></ul>
-  								</div>
+								<select id="cbPetbtn"></select>
 						</fieldset>	<br>					
 					</form>
 				</div>

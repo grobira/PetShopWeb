@@ -282,13 +282,13 @@ function loadServs(data){
 
 function loadServsCB(data){
 	for(let j in data){
-		$("#cbServ").append("<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\">" + data[j].name+ "</a></li>");
+		$("#cbServicos").append("<option value=\""+ data[j].name+"\">"+data[j].name+"</option>");
 	}
 }
 
 function loadPetsCB(data){
 	for(let j in data){
-		$("#cbPet").append("<li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\">" + data[j].name+ "</a></li>");
+		$("#cbPetbtn").append("<option value=\""+ data[j].name+"\">"+data[j].name+"</option>");
 	}
 }
 
@@ -789,7 +789,7 @@ $(document).on("click", "#btn_save", ()=>{
 });
 
 $(document).on("click", "#btn_agenda", ()=>{
-	alert($('#datetimepicker12').datetimepicker().val());
+	alert($('#datetimepicker12').datetimepicker());
 });
 
 
@@ -848,7 +848,7 @@ $(document).ready(() => {
 				loadPetsUser(list,"000002");
 			});
 		}
-		if ($("#cbServicos").is(':visible')){ //Se estiver na ela de agendamento
+		if ($("#cbServicos").is(':visible')){ //Se estiver na tela de agendamento
 			readAll("servs", function(resp) {
 				loadServsCB(resp);
 			});
