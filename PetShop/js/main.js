@@ -23,12 +23,12 @@ const servicesData = [
 
 //Products
 const productsData = [
-    {idprod: "300000", name: "Ração Golden - 15kg", description: "Ração deliciosa cheia de nutrientes para o seu cão.", price: 104.90, stock: 10, sells: 20, photo: "img/golden.jpg"},
-    {idprod: "300001", name: "Ração Royal Canin", description: "Nutritiva e macia.", price: 37.99, stock: 5, sells: 2, photo: "img/royal.jpg"},
-    {idprod: "300002", name: "Alimento Úmido Pedigree", description: "Feito com deliciosos pedaços de carne cozidos a vapor!", price: 1.99, stock: 12, sells: 2, photo: "img/sache.jpg"},
-	{idprod: "300003", name: "Shampoo Antipulgas", description: "Esse funciona!", price: 12.50, stock: 20, sells: 2, photo: "img/shampoo.jpg"},
-	{idprod: "300004", name: "Cama Azul Jully Bichinho Chic", description: "A mais confortavel!", price: 88.00, stock: 3, sells: 2, photo: "img/cama.jpg"},
-	{idprod: "300005", name: "Gaiola 2 Andares Chinchila", description: "A nova geração de processadores da AMD Bulldozer já chegou!", price: 266.00, stock: 3, sells: 2, photo: "img/gaiola.jpg"}
+    {idprod: "300000", name: "Ração Golden - 15kg", description: "Ração deliciosa cheia de nutrientes para o seu cão.", price: "104.90", stock: 10, sells: 20, photo: "img/golden.jpg"},
+    {idprod: "300001", name: "Ração Royal Canin", description: "Nutritiva e macia.", price: "37.99", stock: 5, sells: 2, photo: "img/royal.jpg"},
+    {idprod: "300002", name: "Alimento Úmido Pedigree", description: "Feito com deliciosos pedaços de carne cozidos a vapor!", price: "1.99", stock: 12, sells: 2, photo: "img/sache.jpg"},
+	{idprod: "300003", name: "Shampoo Antipulgas", description: "Esse funciona!", price: "12.50", stock: 20, sells: 2, photo: "img/shampoo.jpg"},
+	{idprod: "300004", name: "Cama Azul Jully Bichinho Chic", description: "A mais confortavel!", price: "88.00", stock: 3, sells: 2, photo: "img/cama.jpg"},
+	{idprod: "300005", name: "Gaiola 2 Andares Chinchila", description: "A nova geração de processadores da AMD Bulldozer já chegou!", price: "266.00", stock: 3, sells: 2, photo: "img/gaiola.jpg"}
 ];
 
 //Sales
@@ -355,7 +355,7 @@ function loadProducts(data){
 
 function loadProductsRelatorio(data){
 	for(let j in data){
-		$("#txtrel").append(data[j].idprod + "\t" + data[j].name + "\t\t\t" + data[j].price + "\t\t" + data[j].stock+ "\t" + data[j].sells +"\n");
+		$("#txtrel").append(data[j].idprod + "\t" + data[j].name.substr(0,15) + "\t\t" + data[j].price + "\t" + data[j].stock+ "\t" + data[j].sells +"\n");
 	}
 }
 
