@@ -23,12 +23,12 @@ const servicesData = [
 
 //Products
 const productsData = [
-    {idprod: "300000", name: "Ração Golden Adulto Special - 15kg", description: "Ração deliciosa cheia de nutrientes para o seu cão.", price: 104.90, stock: 10, sells: 20, photo: "img/golden.jpg"},
-    {idprod: "300001", name: "Ração Royal Canin Club Performance Adulto", description: "Nutritiva e macia.", price: 37.99, stock: 5, sells: 2, photo: "img/royal.jpg"},
-    {idprod: "300002", name: "Alimento Úmido Pedigree Sachê Adulto Raças Pequenas Cordeiro ao Molho - 100g", description: "Feito com deliciosos pedaços de carne cozidos a vapor!", price: 1.99, stock: 12, sells: 2, photo: "img/sache.jpg"},
-	{idprod: "300003", name: "Shampoo Antipulgas Sanol - 500ml", description: "Esse funciona!", price: 12.50, stock: 20, sells: 2, photo: "img/shampoo.jpg"},
-	{idprod: "300004", name: "Cama Azul Jully Bichinho Chic", description: "A mais confortavel!", price: 88.00, stock: 3, sells: 2, photo: "img/cama.jpg"},
-	{idprod: "300005", name: "Gaiola 2 Andares Chinchila", description: "A nova geração de processadores da AMD Bulldozer já chegou!", price: 266.00, stock: 3, sells: 2, photo: "img/gaiola.jpg"}
+    {idprod: "300000", name: "Ração Golden - 15kg", description: "Ração deliciosa cheia de nutrientes para o seu cão.", price: "104.90", stock: 10, sells: 20, photo: "img/golden.jpg"},
+    {idprod: "300001", name: "Ração Royal Canin", description: "Nutritiva e macia.", price: "37.99", stock: 5, sells: 2, photo: "img/royal.jpg"},
+    {idprod: "300002", name: "Alimento Úmido Pedigree", description: "Feito com deliciosos pedaços de carne cozidos a vapor!", price: "1.99", stock: 12, sells: 2, photo: "img/sache.jpg"},
+	{idprod: "300003", name: "Shampoo Antipulgas", description: "Esse funciona!", price: "12.50", stock: 20, sells: 2, photo: "img/shampoo.jpg"},
+	{idprod: "300004", name: "Cama Azul Jully Bichinho Chic", description: "A mais confortavel!", price: "88.00", stock: 3, sells: 2, photo: "img/cama.jpg"},
+	{idprod: "300005", name: "Gaiola 2 Andares Chinchila", description: "A nova geração de processadores da AMD Bulldozer já chegou!", price: "266.00", stock: 3, sells: 2, photo: "img/gaiola.jpg"}
 ];
 
 //Sales
@@ -319,6 +319,7 @@ function loadProducts(data){
 	$("#btn_save").prop("disabled", true);
 }
 
+<<<<<<< HEAD
 function loadProductsStore(data){
 	let n = index;
 	for (let i=1; i<=6;i++){
@@ -333,6 +334,62 @@ function loadProductsStore(data){
 			n++;
 		}
 	}
+=======
+function loadProductsRelatorio(data){
+	for(let j in data){
+		$("#txtrel").append(data[j].idprod + "\t" + data[j].name.substr(0,15) + "\t\t" + data[j].price + "\t" + data[j].stock+ "\t" + data[j].sells +"\n");
+	}
+}
+
+function loadProductsStore(data, n){
+	$("#prod1").html("");
+	$("#prod1").append("<img src="+data[n].photo +">");
+	$("#prod1").append("<h1>"+ data[n].name +"</h1>");
+	$("#prod1").append("<p>"+ data[n].description +"</p>");
+	$("#prod1").append("<h2>R$: "+ data[n].price +"</h2>");
+	$("#prod1").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
+	$("#prod1").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
+	n++;
+	$("#prod2").html("");
+	$("#prod2").append("<img src="+ data[n].photo +">");
+	$("#prod2").append("<h1>"+ data[n].name +"</h1>");
+	$("#prod2").append("<p>"+ data[n].description +"</p>");
+	$("#prod2").append("<h2>R$: "+ data[n].price +"</h2>");
+	$("#prod2").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
+	$("#prod2").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
+	n++;
+	$("#prod3").html("");
+	$("#prod3").append("<img src="+ data[n].photo +">");
+	$("#prod3").append("<h1>"+ data[n].name +"</h1>");
+	$("#prod3").append("<p>"+ data[n].description +"</p>");
+	$("#prod3").append("<h2>R$: "+ data[n].price +"</h2>");
+	$("#prod3").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
+	$("#prod3").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
+	n++;
+	$("#prod4").html("");
+	$("#prod4").append("<img src="+ data[n].photo +">");
+	$("#prod4").append("<h1>"+ data[n].name +"</h1>");
+	$("#prod4").append("<p>"+ data[n].description +"</p>");
+	$("#prod4").append("<h2>R$: "+ data[n].price +"</h2>");
+	$("#prod4").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
+	$("#prod4").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
+	n++;
+	$("#prod5").html("");
+	$("#prod5").append("<img src="+ data[n].photo +">");
+	$("#prod5").append("<h1>"+ data[n].name +"</h1>");
+	$("#prod5").append("<p>"+ data[n].description +"</p>");
+	$("#prod5").append("<h2>R$: "+ data[n].price +"</h2>");
+	$("#prod5").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
+	$("#prod5").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
+	n++;
+	$("#prod6").html("");
+	$("#prod6").append("<img src="+ data[n].photo +">");
+	$("#prod6").append("<h1>"+ data[n].name +"</h1>");
+	$("#prod6").append("<p>"+ data[n].description +"</p>");
+	$("#prod6").append("<h2>R$: "+ data[n].price +"</h2>");
+	$("#prod6").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
+	$("#prod6").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
+>>>>>>> 6eca08176175191156608ea5f720ab0e7b53aa4e
 }
 
 function loadPetsUser(data,id_user){
@@ -836,21 +893,30 @@ $(document).ready(() => {
 				loadProductsStore(list);
 			});
 		}
+<<<<<<< HEAD
 		if ($("#animais").is(':visible')){ //Se estiver na tela de animais do cliente
+=======
+		if ($("#animais").is(':visible')){ 
+>>>>>>> 6eca08176175191156608ea5f720ab0e7b53aa4e
 			readAll("pets", function(resp) {
 				index=0;
 				list=resp;
 				loadPetsUser(list);
 			});
 		}
-		if ($("#cbServicos").is(':visible')){ //Se estiver na tela de produtos do cliente
+		if ($("#cbServicos").is(':visible')){ //Se estiver na ela de agendamento
 			readAll("servs", function(resp) {
-			loadServsCB(resp);
+				loadServsCB(resp);
 			});
 		}
-		if ($("#cbPetbtn").is(':visible')){ //Se estiver na tela de produtos do cliente
+		if ($("#cbPetbtn").is(':visible')){ //Se estiver na tela de agendamento
 			readAll("pets", function(resp) {
-			loadPetsCB(resp);
+				loadPetsCB(resp);
+			});
+		}
+		if ($("#relatorio").is(':visible')){
+			readAll("products", function(resp){
+				loadProductsRelatorio(resp);
 			});
 		}
 

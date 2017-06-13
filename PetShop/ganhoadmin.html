@@ -6,6 +6,10 @@
 <head>
 	<title>Pet Shop</title>
 	<link type="text/css" rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/main.js" type="text/javascript"></script>
 </head>
 <body>
 	<header>
@@ -23,17 +27,12 @@
 			</ul>
 		</div>
 	
-		<div class="item" action="#.php"> <h2>Ganhos</h2> <hr>
-		<form class="form_" action="#.php">		
-			<textarea style="width: 50%; height: 350px;" name="message">Relatório de vendas
+		<div id="relatorio" class="item" action="#.php"> <h2>Ganhos</h2> <hr>
+		<form class="form_" action="#.php">
+			<textarea id="txtrel" style="width: 80%; height: 350px; overflow: scroll;" name="message">Relatório de vendas
 
-Produto 	Preço 	Qtd. Vendida 	Estoque
-
-Ração Pedigree	R$69,90	 50		10
-Shampoo Gatos	R$25,99  10		18
-Casa para Gatos	R$64,99  3		4
-----------		-------		-------
-Caixa 		R$3949,87</textarea><br>
+ID		Nome 				Preço	Estoque 	Vendido
+</textarea><br>
 		</form>				
 		</div>
 	</section>
