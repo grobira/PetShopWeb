@@ -11,7 +11,7 @@ const usersData = [
 //Pets
 const petsData = [
     {idpet: "100000", name: "Duzas", breed: "Vira-Lata", age: 3, photo: "img/duzas.jpg", iduser: "000002"},
-    {idpet: "100001", name: "Bob", breed: "Rottweiler", age: 2,  photo: "img/Pug.jpg", iduser: "000002"},
+    {idpet: "100001", name: "Bob", breed: "Rottweiler", age: 2, photo: "img/Pug.jpg", iduser: "000002"},
 	{idpet: "100002", name: "Mell", breed: "Poodle", age: 3, photo: "img/Golden-Retriever.jpg", iduser: "000002"}
 ];
 
@@ -23,12 +23,12 @@ const servicesData = [
 
 //Products
 const productsData = [
-    {idprod: "300000", name: "Ração Golden - 15kg", description: "Ração deliciosa cheia de nutrientes para o seu cão.", price: "104.90", stock: 10, sells: 20, photo: "img/golden.jpg"},
-    {idprod: "300001", name: "Ração Royal Canin", description: "Nutritiva e macia.", price: "37.99", stock: 5, sells: 2, photo: "img/royal.jpg"},
-    {idprod: "300002", name: "Alimento Úmido Pedigree", description: "Feito com deliciosos pedaços de carne cozidos a vapor!", price: "1.99", stock: 12, sells: 2, photo: "img/sache.jpg"},
-	{idprod: "300003", name: "Shampoo Antipulgas", description: "Esse funciona!", price: "12.50", stock: 20, sells: 2, photo: "img/shampoo.jpg"},
-	{idprod: "300004", name: "Cama Azul Jully Bichinho Chic", description: "A mais confortavel!", price: "88.00", stock: 3, sells: 2, photo: "img/cama.jpg"},
-	{idprod: "300005", name: "Gaiola 2 Andares Chinchila", description: "A nova geração de processadores da AMD Bulldozer já chegou!", price: "266.00", stock: 3, sells: 2, photo: "img/gaiola.jpg"}
+    {idprod: "300000", name: "Ração Golden - 15kg", description: "Ração deliciosa cheia de nutrientes para o seu cão.", price: 104.90, stock: 10, sells: 20, photo: "img/golden.jpg"},
+    {idprod: "300001", name: "Ração Royal Canin", description: "Nutritiva e macia.", price: 37.99, stock: 5, sells: 2, photo: "img/royal.jpg"},
+    {idprod: "300002", name: "Alimento Úmido Pedigree", description: "Feito com deliciosos pedaços de carne cozidos a vapor!", price: 11.99, stock: 12, sells: 2, photo: "img/sache.jpg"},
+	{idprod: "300003", name: "Shampoo Antipulgas", description: "Esse funciona!", price: 12.50, stock: 20, sells: 2, photo: "img/shampoo.jpg"},
+	{idprod: "300004", name: "Cama Azul Jully Bichinho Chic", description: "A mais confortavel!", price: 88.00, stock: 3, sells: 2, photo: "img/cama.jpg"},
+	{idprod: "300005", name: "Gaiola 2 Andares Chinchila", description: "A nova geração de processadores da AMD Bulldozer já chegou!", price: 266.00, stock: 3, sells: 2, photo: "img/gaiola.jpg"}
 ];
 
 //Sales
@@ -229,7 +229,7 @@ function loadClient(data){
 	//Mostra pets na tela
 	readAll("pets", function(resp1){
 		if (resp1 != null){
-			loadPetsUser(resp1,data.iduser);
+			 loadPetsUser(resp1,data.iduser);
 		}//if
 	});
 }
@@ -319,87 +319,34 @@ function loadProducts(data){
 	$("#btn_save").prop("disabled", true);
 }
 
-<<<<<<< HEAD
-function loadProductsStore(data){
-	let n = index;
-	for (let i=1; i<=6;i++){
-		$("#prod"+i).html("");		
+function loadProductsRelatorio(data){
+	for(let j in data){
+		$("#txtrel").append(data[j].idprod + "\t" + data[j].name.substr(0,15) + "\t\t" + data[j].price.toFixed(2) + "\t\t" + data[j].stock+ "\t" + data[j].sells +"\n");
+	}
+}
+
+function loadProductsStore(data,n){
+	for (let i=1; i<=6; i++){
+		$("#prod"+i).html("");
 		if (n < list.length){	
 			$("#prod"+i).append("<img src="+data[n].photo +">");
 			$("#prod"+i).append("<h1>"+ data[n].name +"</h1>");
 			$("#prod"+i).append("<p>"+ data[n].description +"</p>");
 			$("#prod"+i).append("<h2>R$: "+ data[n].price +"</h2>");
 			$("#prod"+i).append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
-			$("#prod"+i).append("<button id=\"btnComprar\" type=\"button\" class=\"btn btn-success\">Comprar</button>");
+			$("#prod"+i).append("<button type=\"button\" class=\"btn btn-success\" id=\"btnComprar\">Comprar</button>");
 			n++;
 		}
 	}
-=======
-function loadProductsRelatorio(data){
-	for(let j in data){
-		$("#txtrel").append(data[j].idprod + "\t" + data[j].name.substr(0,15) + "\t\t" + data[j].price + "\t" + data[j].stock+ "\t" + data[j].sells +"\n");
-	}
-}
-
-function loadProductsStore(data, n){
-	$("#prod1").html("");
-	$("#prod1").append("<img src="+data[n].photo +">");
-	$("#prod1").append("<h1>"+ data[n].name +"</h1>");
-	$("#prod1").append("<p>"+ data[n].description +"</p>");
-	$("#prod1").append("<h2>R$: "+ data[n].price +"</h2>");
-	$("#prod1").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
-	$("#prod1").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
-	n++;
-	$("#prod2").html("");
-	$("#prod2").append("<img src="+ data[n].photo +">");
-	$("#prod2").append("<h1>"+ data[n].name +"</h1>");
-	$("#prod2").append("<p>"+ data[n].description +"</p>");
-	$("#prod2").append("<h2>R$: "+ data[n].price +"</h2>");
-	$("#prod2").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
-	$("#prod2").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
-	n++;
-	$("#prod3").html("");
-	$("#prod3").append("<img src="+ data[n].photo +">");
-	$("#prod3").append("<h1>"+ data[n].name +"</h1>");
-	$("#prod3").append("<p>"+ data[n].description +"</p>");
-	$("#prod3").append("<h2>R$: "+ data[n].price +"</h2>");
-	$("#prod3").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
-	$("#prod3").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
-	n++;
-	$("#prod4").html("");
-	$("#prod4").append("<img src="+ data[n].photo +">");
-	$("#prod4").append("<h1>"+ data[n].name +"</h1>");
-	$("#prod4").append("<p>"+ data[n].description +"</p>");
-	$("#prod4").append("<h2>R$: "+ data[n].price +"</h2>");
-	$("#prod4").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
-	$("#prod4").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
-	n++;
-	$("#prod5").html("");
-	$("#prod5").append("<img src="+ data[n].photo +">");
-	$("#prod5").append("<h1>"+ data[n].name +"</h1>");
-	$("#prod5").append("<p>"+ data[n].description +"</p>");
-	$("#prod5").append("<h2>R$: "+ data[n].price +"</h2>");
-	$("#prod5").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
-	$("#prod5").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
-	n++;
-	$("#prod6").html("");
-	$("#prod6").append("<img src="+ data[n].photo +">");
-	$("#prod6").append("<h1>"+ data[n].name +"</h1>");
-	$("#prod6").append("<p>"+ data[n].description +"</p>");
-	$("#prod6").append("<h2>R$: "+ data[n].price +"</h2>");
-	$("#prod6").append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
-	$("#prod6").append("<button type=\"button\" class=\"btn btn-success\" style=\"position: absolute;right: 0; bottom: 0;\">Comprar</button>");
->>>>>>> 6eca08176175191156608ea5f720ab0e7b53aa4e
 }
 
 function loadPetsUser(data,id_user){
 		if (data != null){
 			$("#add_pets").append("<ul id=\"nav_pets\" class=\"nav nav-tabs\"> </ul>  <div id=\"tab_pets\" class=\"tab-content\"> </div>");
-
 			let num_pets = 1;			
 			for (let j in data) {
 				str = "";
-				if (000002 == data[j].iduser){ //Se for um pet desse usuario
+				if (id_user == data[j].iduser){ //Se for um pet desse usuario
 					if (num_pets == 1){ //Se for o primeiro pet, vai estar ativado					
 						$("#nav_pets").append("<li class=\"active\"> <a data-toggle=\"tab\" href=\"#pet"+num_pets+"\">Pet"+num_pets+"</a></li>");
 						str = "<div id=\"pet"+num_pets+"\" class=\"tab-pane fade in active\">";
@@ -842,15 +789,16 @@ $(document).on("click", "#btn_save", ()=>{
 });
 
 $(document).on("click", "#btn_agenda", ()=>{
-	alert($('#datetimepicker12').data("datetimepicker"));
+	alert($('#datetimepicker12').datetimepicker().val());
 });
+
 
 //===========================================================================================================================
 // Ready do documento
 //===========================================================================================================================
 $(document).ready(() => {
 	LoadDB(() => { //Carrega o "banco"
-		if ($("#form_cadClient").is(':visible')){ //Se estiver na tela de cadastro de clientes
+		if ($("#form_cadClient").is(':visible')){ //Se estiver na tela de cadastro de cliente
 			readAll("users", function(resp) { 
 				let i=0;			
 				while(resp[i].type != "1"){ //Enquanto não for cliente
@@ -879,7 +827,7 @@ $(document).ready(() => {
 				loadServs(list[index]);
 			});
 		}
-		if ($("#form_CadProdutos").is(':visible')){ //Se estiver na tela de cadastro de produtos
+		if ($("#form_CadProdutos").is(':visible')){ //Se estiver na tela de cadastro de servicos
 			readAll("products", function(resp) {
 				index=0;
 				list=resp;
@@ -890,18 +838,14 @@ $(document).ready(() => {
 			readAll("products", function(resp) {
 				index=0;
 				list=resp;
-				loadProductsStore(list);
+				loadProductsStore(list, index);
 			});
 		}
-<<<<<<< HEAD
-		if ($("#animais").is(':visible')){ //Se estiver na tela de animais do cliente
-=======
 		if ($("#animais").is(':visible')){ 
->>>>>>> 6eca08176175191156608ea5f720ab0e7b53aa4e
 			readAll("pets", function(resp) {
 				index=0;
 				list=resp;
-				loadPetsUser(list);
+				loadPetsUser(list,"000002");
 			});
 		}
 		if ($("#cbServicos").is(':visible')){ //Se estiver na ela de agendamento
@@ -919,8 +863,7 @@ $(document).ready(() => {
 				loadProductsRelatorio(resp);
 			});
 		}
-
-	});
+    });
 });
 
 
