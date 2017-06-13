@@ -58,6 +58,18 @@ section {
 	margin: 0px 50px 0px 50px; 
 }
 
+#btnComprar{
+	position: absolute;
+	right: 0; 
+	bottom: 0;
+}
+
+#btn_prod_back, #btn_prod_next {
+	position: bottom;
+	right: 0; 
+	bottom: 0;
+}
+
 .container_agenda {
 	float: left;
 	padding-left: 12px;
