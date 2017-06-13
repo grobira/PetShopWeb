@@ -10,9 +10,9 @@ const usersData = [
 
 //Pets
 const petsData = [
-    {idpet: "100000", name: "Duzas", breed: "Vira-Lata", age: 3, sex: "M", photo: "img/duzas.jpg", iduser: "000002"},
-    {idpet: "100001", name: "Bob", breed: "Rottweiler", age: 2, sex: "M", photo: "img/Pug.jpg", iduser: "000002"},
-	{idpet: "100002", name: "Mell", breed: "Poodle", age: 3, sex: "F", photo: "img/Golden-Retriever.jpg", iduser: "000002"}
+    {idpet: "100000", name: "Duzas", breed: "Vira-Lata", age: 3, photo: "img/duzas.jpg", iduser: "000002"},
+    {idpet: "100001", name: "Bob", breed: "Rottweiler", age: 2,  photo: "img/Pug.jpg", iduser: "000002"},
+	{idpet: "100002", name: "Mell", breed: "Poodle", age: 3, photo: "img/Golden-Retriever.jpg", iduser: "000002"}
 ];
 
 //Servs
