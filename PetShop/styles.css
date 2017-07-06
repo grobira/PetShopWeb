@@ -1,3 +1,5 @@
+/*Trabalho 2 Web - Julia Minetto e Giovanni Robira*/
+
 body {
 	font-family: Verdana,sans-serif;
 	font-size: 0.9em;
@@ -101,7 +103,7 @@ section {
 	border: 0px;
 }
 
-input[type=text]:not(.form-control), input[type=password], input[type=email], input[type=number], select {  
+input[type=text]:not(.form-control), input[type=password]:not(.container_login), input[type=email], input[type=number], select {  
 	padding: 5px 10px;
 	margin: 5px 10px 5px 10px;
     border: 1px solid #ccc;

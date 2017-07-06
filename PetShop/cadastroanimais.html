@@ -28,8 +28,8 @@
 				</ul>
 				</div>
 	
-		<div class="item" action="#.php"> <h2>Cadastro de animais</h2> <hr>
-		<form class="form_cadAnimal" action="#.php">
+		<div class="item"> <h2>Cadastro de animais</h2> <hr>
+		<form id="form_cadAnimal">
 			<div class="container1">			
 				<p class="line">Nome:</p><br>
 				<p class="line">Raça:</p><br>
@@ -38,16 +38,15 @@
 			</div>
 			
 				<div class="container21">
-					<input type="text" name="tnome"><br>
-					<input type="text" name="traca"><br>
-					<input type="text" name="tage"><br>
-					<input type="text" name="tsexo"><br>
+					<input type="text" id="tnome"><br>
+					<input type="text" id="traca"><br>
+					<input type="number" id="tage"><br>
+					<input type="text" id="tsexo"><br>
 				</div>	
 				<div class="container22">
 					<img src="img/picture.png" alt="Photo" width="150px" height="150px" border="1px transparent #ccc">			
 				</div><br>
 			<div class="container2"> 
-			<button type="button" id="btn_cancel" class="btn btn-success">Cancelar</button> 
 			<button type="button" id="btn_save" class="btn btn-success">Salvar</button>
 			</div>
 		</form>				

@@ -42,12 +42,12 @@
 					<form class="formagenda">
 						<fieldset>
 							<legend>Selecione a data:</legend>
-							<div class="container">
+							<div id="container">
 								<div class="row">
 									<div class='col-sm-6'>
 										<div class="form-group">
 											<div class='input-group date' id='datetimepicker1'>
-												<input type='hidden' class="form-control" id="agendaData" />
+												<input type='hidden' class="form-control" id="textData" />
 											</div>
 										</div>
 									</div>
@@ -55,7 +55,9 @@
 										$(() => {
 											$('#datetimepicker1').datetimepicker({
 												inline: true,
-												format: 'DD/MM/YYYY'});
+												format: 'DD/MM/YYYY'
+											});
+												
 										});
 									</script>
 								</div>

@@ -1,3 +1,4 @@
+//Trabalho 2 Web - Julia Minetto e Giovanni Robira
 const dbname = "dbpetshop";
 
 //Users
@@ -38,13 +39,14 @@ const salesProducts = [
 
 //Venda de servicos
 const salesServices = [
-	{ idsales: "500000", iduser: "000002", idpet: "100000", idserv: "200000", total: 11.00, timeService: "14:00", dateService: "13/06/2017"}
+	{ idsales: "500000", iduser: "000003", idpet: "100000", idserv: "200000", total: 11.00, timeService: "14:00", dateService: "13/06/2017"}
 ];
 
 let db;
 let useri;
-var list = [];
+var list, list2 = [];
 let index = 1;
+var totalcomp=0;
 
 //===========================================================================================================================
 // Inicializando IndexedDB
@@ -52,7 +54,7 @@ let index = 1;
 function LoadDB(callback) {
 	if("indexedDB" in window) {
 		console.log("IndexedDB is supported!!");
-		indexedDB.deleteDatabase(dbname);
+		//indexedDB.deleteDatabase(dbname);
 		let openRequest = indexedDB.open(dbname);
 
 		openRequest.onupgradeneeded = e => {
@@ -66,7 +68,7 @@ function LoadDB(callback) {
 		       objectStore.add(usersData[i]);
 		    }
 			//Upgrading pets
-		    objectStore = db.createObjectStore("pets", {keyPath: "idpet"});
+		    objectStore = db.createObjectStore("pets", {keyPath: "idpet", autoIncrement : true});
 		    for (i in petsData) {
 		       objectStore.add(petsData[i]);
 		    }
@@ -82,12 +84,12 @@ function LoadDB(callback) {
 		       objectStore.add(productsData[i]);
 		    }
 			//Upgrading sales services
-		    objectStore = db.createObjectStore("saleservice", {keyPath: "idsales"});
+		    objectStore = db.createObjectStore("saleservice", {keyPath: "idsales", autoIncrement: true});
 		    for (i in salesServices) {
 		       objectStore.add(salesServices[i]);
 		    }
 			//Upgrading sales products
-		    objectStore = db.createObjectStore("saleproducts", {keyPath: "idsalep"});
+		    objectStore = db.createObjectStore("saleproducts", {keyPath: "idsalep", autoIncrement: true});
 		    for (i in salesProducts) {
 		       objectStore.add(salesProducts[i]);
 		    }		
@@ -159,9 +161,8 @@ function read(table,id,callback) {
    };
    
    request.onsuccess = e => {      
-		if(e.target.result) {
-			alert(e.target.result);
-			callback(e.target.result);
+		if(request.result) {
+			callback(request.result);
 		}
       else {
          alert("'"+id+"' couldn't be found in your database!");  
@@ -175,7 +176,7 @@ function remove(table,id) {
    .delete(id);
    
    request.onsuccess = () => {
-      alert("This data has been removed from your database.");
+      //alert("This data has been removed from your database.");
    };
 }
 
@@ -187,8 +188,8 @@ function login(){
 		let found=false;
 		for (let i in resp) {
 			if ((resp[i].login == $("#uname").val()) && (resp[i].password == $("#psw").val())) {
-				found=true;
-				useri = resp[i].iduser;
+				found = true;				
+				localStorage.setItem("user_loged", resp[i].iduser);
 				if(resp[i].type == "0")
 					window.location.href="indexadmin.html"; 
 				else
@@ -282,13 +283,56 @@ function loadServs(data){
 
 function loadServsCB(data){
 	for(let j in data){
-		$("#cbServicos").append("<option value=\""+ data[j].name+"\">"+data[j].name+"</option>");
+		if (data[j].iduser == localStorage.getItem("user_loged"))
+			$("#cbServicos").append("<option value=\""+ data[j].name+"\">"+data[j].name+"</option>");
 	}
 }
 
 function loadPetsCB(data){
 	for(let j in data){
-		$("#cbPetbtn").append("<option value=\""+ data[j].name+"\">"+data[j].name+"</option>");
+		if (data[j].iduser == localStorage.getItem("user_loged"))
+			$("#cbPetbtn").append("<option value=\""+ data[j].name+"\">"+data[j].name+"</option>");
+	}
+}
+
+function loadSalesP(data){
+	let user = localStorage.getItem("user_loged");
+	for(let i in data){
+		if (data[i].iduser == user){
+			read("products", data[i].idproduto, function(resp1){
+				$("#compra_produtos").append("<div style=\"height: 30%;\" class=\"produto\"><img src=\"" + resp1.photo +"\"><h1><b>"+ resp1.name +"</b></h1><h2>R$:" +data[i].total.toFixed(2) +"</h2></div>");
+				totalcomp += data[i].total;
+				$("#valor_total").html("Valor total: R$ "+totalcomp.toFixed(2));
+			});
+		}
+	}
+}
+
+function loadSalesS(data){
+	let user = localStorage.getItem("user_loged");
+	for(let i in data){
+		if (data[i].iduser == user){
+			read("servs", data[i].idserv, function(resp1){
+				$("#compra_serv").append("<div style=\"height: 20%;\" class=\"produto\"><img src=\"" + resp1.photo +"\"><h1><b>"+ resp1.name +"</b></h1><p>"+ data[i].timeService +" - " + data[i].dateService+ "</p><h2>R$: " +data[i].total.toFixed(2) +"</h2></div>");
+				totalcomp += data[i].total;
+				$("#valor_total").html("Valor total: R$ "+totalcomp.toFixed(2));
+			});
+		}
+	}
+}
+
+function loadTimeCB(data){
+	let times=["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
+	for(let j in data){
+		if ($("#textData").val() == data[j].dateService){
+			//Removo os horarios já ocupados
+			let index_time = times.indexOf(data[j].timeService);
+			times.splice(index_time,1);
+		}
+	}
+	$("#cbHorario").html("");
+	for (let j in times){
+		$("#cbHorario").append("<option value=\""+ times[j]+"\">"+times[j]+"</option>");	
 	}
 }
 
@@ -325,17 +369,17 @@ function loadProductsRelatorio(data){
 	}
 }
 
-function loadProductsStore(data,n){
+function loadProductsStore(data){
 	for (let i=1; i<=6; i++){
 		$("#prod"+i).html("");
-		if (n < list.length){	
-			$("#prod"+i).append("<img src="+data[n].photo +">");
-			$("#prod"+i).append("<h1>"+ data[n].name +"</h1>");
-			$("#prod"+i).append("<p>"+ data[n].description +"</p>");
-			$("#prod"+i).append("<h2>R$: "+ data[n].price +"</h2>");
-			$("#prod"+i).append("<p>Qtd:<input type=\"number\" name=\"tqtde\" value=\"0\" width=\"20px\"></p>");
-			$("#prod"+i).append("<button type=\"button\" class=\"btn btn-success\" id=\"btnComprar\">Comprar</button>");
-			n++;
+		if ((index>=0) && (index < list.length)){	
+			$("#prod"+i).append("<img src="+data[index].photo +">");
+			$("#prod"+i).append("<h1>"+ data[index].name +"</h1>");
+			$("#prod"+i).append("<p>"+ data[index].description +"</p>");
+			$("#prod"+i).append("<h2>R$: "+ data[index].price +"</h2>");
+			$("#prod"+i).append("<p>Qtd:<input type=\"number\" id=\"tqtde"+i+"\" value=\"0\" width=\"20px\"></p>");
+			$("#prod"+i).append("<button type=\"button\" class=\"btn btn-success\" id=\"btnComprar"+i+"\">Comprar</button>");
+			index++;		
 		}
 	}
 }
@@ -379,6 +423,8 @@ function loadPetsUser(data,id_user){
 		}//if
 }
 
+
+
 //===========================================================================================================================
 // Funções botão gerenciamento (novo,edit,salvar,etc...)
 //===========================================================================================================================
@@ -414,17 +460,9 @@ $(document).on("click", "#btn_back", ()=>{
 });
 
 $(document).on("click", "#btn_prod_next", ()=>{
-	let i=index;
-	if(index < 0)
-		index=list.length-1;
-	loadProductsStore(list, index+1);
-});
-
-$(document).on("click", "#btn_prod_back", ()=>{
-	let i=index;
-	if(index < 0)
-		index=list.length-1;
-	loadProductsStore(list, index-1);
+	if(index >= list.length-1)
+		index=0;
+	loadProductsStore(list);
 });
 
 
@@ -508,6 +546,7 @@ $(document).on("click", "#btn_new", ()=>{
 		$("#temail").val("");
 		$("#tlogin").val("");
 		$("#tpass").val("");
+		$("#tphoto").html("<img src=\"img/user.png\">");
 		$("#tid").prop("disabled", false);
 		$("#tnome").prop("disabled", false);
 		$("#tendereco").prop("disabled", false);
@@ -524,6 +563,7 @@ $(document).on("click", "#btn_new", ()=>{
 		$("#temail").val("");
 		$("#tlogin").val("");
 		$("#tpass").val("");
+		$("#tphoto").html("<img src=\"img/user.png\">");
 		$("#tid").prop("disabled", false);
 		$("#tnome").prop("disabled", false);
 		$("#ttelefone").prop("disabled", false);
@@ -536,6 +576,7 @@ $(document).on("click", "#btn_new", ()=>{
 		$("#tnome").val("");
 		$("#tdescricao").val("");
 		$("#tpreco").val("0.00");	
+		$("#tphoto").html("<img src=\"img/picture.png\">");
 		$("#tid").prop("disabled", false);
 		$("#tnome").prop("disabled", false);
 		$("#tdescricao").prop("disabled", false);
@@ -548,6 +589,7 @@ $(document).on("click", "#btn_new", ()=>{
 		$("#tpreco").val(0.0);	
 		$("#tqtde").val(00);
 		$("#tqtdv").val(00);
+		$("#tphoto").html("<img src=\"img/picture.png\">");
 		$("#tid").prop("disabled", false);
 		$("#tnome").prop("disabled", false);
 		$("#tdescricao").prop("disabled", false);
@@ -564,12 +606,18 @@ $(document).on("click", "#btn_new", ()=>{
 	$("#btn_save").prop("disabled", false);
 });
 $(document).on("click", "#btn_del", ()=>{
-	if ($("#form_cadAdmin").is(':visible') || ($("#form_cadClient").is(':visible')))
+	if ($("#form_cadAdmin").is(':visible') || ($("#form_cadClient").is(':visible'))){
 		remove("users",$("#tid").val());
-	if ($("#form_CadServicos").is(':visible'))
+		alert("This user has been removed from your database.");
+	}
+	if ($("#form_CadServicos").is(':visible')){
 		remove("servs",$("#tid").val());
-	if ($("#form_CadProdutos").is(':visible'))
+		alert("This service has been removed from your database.");
+	}
+	if ($("#form_CadProdutos").is(':visible')){
 		remove("products",$("#tid").val());
+		alert("This product has been removed from your database.");	
+	}
 	list.splice(index, 1);
 	$("#btn_back").prop("disabled", false);
 	$("#btn_next").prop("disabled", false);
@@ -629,7 +677,7 @@ $(document).on("click", "#btn_save", ()=>{
 		}
 		else {
 			if(($("#tid").val()!= "") && ($("#tnome").val()!= "") && ($("#tendereco").val()!="")&&($("#ttelefone").val()!="")&&($("#temail").val()!="")){
-				list.push({iduser: $("#tid").val(), name: $("#tnome").val(), login: $("#tlogin").val(), password: $("#tpass").val(), address: $("#tendereco").val(), phone: $("#ttelefone").val(), email: $("#temail").val(), photo: "", type: "1"});	
+				list.push({iduser: $("#tid").val(), name: $("#tnome").val(), login: $("#tlogin").val(), password: $("#tpass").val(), address: $("#tendereco").val(), phone: $("#ttelefone").val(), email: $("#temail").val(), photo: "img/user.png", type: "1"});	
 				index = list.length-1;			
 				add("users",list[index]);
 				$("#tid").prop("disabled", true);
@@ -673,7 +721,7 @@ $(document).on("click", "#btn_save", ()=>{
 		}
 		else {
 			if(($("#tid").val()!= "") && ($("#tnome").val()!= "") &&($("#ttelefone").val()!="")&&($("#temail").val()!="")){
-				list.push({iduser: $("#tid").val(), name: $("#tnome").val(), login: $("#tlogin").val(), password: $("#tpass").val(), phone: $("#ttelefone").val(), email: $("#temail").val(), photo: "", type: "0"});	
+				list.push({iduser: $("#tid").val(), name: $("#tnome").val(), login: $("#tlogin").val(), password: $("#tpass").val(), phone: $("#ttelefone").val(), email: $("#temail").val(), photo: "img/user.png", type: "0"});	
 				index = list.length-1;			
 				add("users",list[index]);
 				$("#tid").prop("disabled", true);
@@ -714,7 +762,7 @@ $(document).on("click", "#btn_save", ()=>{
 		}
 		else {
 			if(($("#tid").val()!= "") && ($("#tnome").val()!= "") &&($("#tdescricao").val()!="")&&($("#tprice").val()!="")){
-				list.push({idserv: $("#tid").val(), name: $("#tnome").val(), description: $("#tdescricao").val(), price: $("#tpreco").val()});	
+				list.push({idserv: $("#tid").val(), name: $("#tnome").val(), description: $("#tdescricao").val(), price: $("#tpreco").val(), photo: "img/picture.png"});	
 				index = list.length-1;			
 				add("servs",list[index]);
 				$("#tid").prop("disabled", true);
@@ -757,7 +805,7 @@ $(document).on("click", "#btn_save", ()=>{
 		}
 		else {
 			if(($("#tid").val()!= "") && ($("#tnome").val()!= "") &&($("#tdescricao").val()!="")&&($("#tprice").val()!="")){
-				list.push({idprod: $("#tid").val(), name: $("#tnome").val(), description: $("#tdescricao").val(), price: $("#tpreco").val(), stock: $("#tqtde").val(), sells: $("#tqtdv").val()});	
+				list.push({idprod: $("#tid").val(), name: $("#tnome").val(), description: $("#tdescricao").val(), price: $("#tpreco").val(), stock: $("#tqtde").val(), sells: $("#tqtdv").val(), photo: "img/picture.png"});	
 				index = list.length-1;			
 				add("products",list[index]);
 				$("#tid").prop("disabled", true);
@@ -778,20 +826,79 @@ $(document).on("click", "#btn_save", ()=>{
 				alert("There is empty fields!");
 		}
 	}
-	if($("#form_CadAnimal").is(':visible')){
+	if($("#form_cadAnimal").is(':visible')){
 		if(($("#tnome").val()!= "") && ($("#traca").val()!= "") &&($("#tage").val()!="")&&($("#tsexo").val()!="")){
-			list.push({idpet: "0004", name: $("#tnome").val(), breed: $("traca").val(), age: $("#tage").val() , sex: $("tsexo").val()});
-			index = list.length-1;
-			add("pets",list[index]);
+			add("pets",{name: $("#tnome").val(), breed: $("#traca").val(), age: $("#tage").val(), photo : "img/pet.png", iduser: localStorage.getItem("user_loged")});
 		}else
 			alert("There is empty fields!");
 	}
 });
 
-$(document).on("click", "#btn_agenda", ()=>{
-	alert($('#agendaData').val());
-	//Procuro 
+$(document).on("click", "#btn_finalizar",()=>{
+	if ($("#tcartao").val() != ""){
+		let user = localStorage.getItem("user_loged");
+		for (let i in list){
+			alert("entrou2"+list[i].iduser+"e"+user);
+			if (list[i].iduser == user){
+				alert("entrou");
+				remove("salesproducts",list[i].idsalep);	
+				list.splice(i,1);
+			}
+		}	
+		for (let i in list2){
+			if (list2[i].iduser == user){
+				alert("entrou");
+				remove("saleservice",list2[i].idsales);	
+				list2.splice(i,1);
+			}
+		}	
+		alert("Payment made successfully");
+	}
+	else
+		alert("Please insert your card!");
 });
+
+$(document).on("click", "#btn_agenda", ()=>{
+	add("saleservice",{iduser: localStorage.getItem("user_loged"), idpet: list2[$("#cbPetbtn").prop("selectedIndex")].idpet, idserv: list[$("#cbServicos").prop("selectedIndex")].idserv, total: list[$("#cbServicos").prop("selectedIndex")].price, timeService: $("#cbHorario").val(), dateService: $("#textData").val()});
+	alert("Service scheduled successfully. Please make the payment");
+});
+
+$(document).on("click", "#btnComprar1", ()=>{
+	alert(index);
+	if ($("#tqtde1").val() != 0){
+		add("saleproducts",{ iduser: localStorage.getItem("user_loged"), idproduto: list[index-6].idprod, qtde: $("#tqtde1").val(), total: (list[index-6].price*$("#tqtde1").val()) });
+	}	
+});
+$(document).on("click", "#btnComprar2", ()=>{
+	if ($("#tqtde2").val() != 0){
+		add("saleproducts",{ iduser: localStorage.getItem("user_loged"), idproduto: list[index-5].idprod, qtde: $("#tqtde2").val(), total: (list[index-5].price*$("#tqtde2").val()) });
+	}	
+});
+$(document).on("click", "#btnComprar3", ()=>{
+	if ($("#tqtde3").val() != 0){
+		add("saleproducts",{ iduser: localStorage.getItem("user_loged"), idproduto: list[index-4].idprod, qtde: $("#tqtde3").val(), total: (list[index-4].price*$("#tqtde3").val()) });
+	}	
+});
+$(document).on("click", "#btnComprar4", ()=>{
+	if ($("#tqtde4").val() != 0){
+		add("saleproducts",{ iduser: localStorage.getItem("user_loged"), idproduto: list[index-3].idprod, qtde: $("#tqtde4").val(), total: (list[index-3].price*$("#tqtde4").val()) });
+	}	
+});
+$(document).on("click", "#btnComprar5", ()=>{
+	if ($("#tqtde5").val() != 0){
+		add("saleproducts",{ iduser: localStorage.getItem("user_loged"), idproduto: list[index-2].idprod, qtde: $("#tqtde5").val(), total: (list[index-2].price*$("#tqtde5").val()) });
+	}	
+});
+$(document).on("click", "#btnComprar6", ()=>{
+	if ($("#tqtde6").val() != 0){
+		add("saleproducts",{ iduser: localStorage.getItem("user_loged"), idproduto: list[index-1].idprod, qtde: $("#tqtde6").val(), total: (list[index-1].price*$("#tqtde6").val()) });
+	}	
+});
+
+//$(document).on("focusin", "#cbHorario", () =>{
+//	alert($('#textData').val());
+//	loadTimeCB(list);
+//});
 
 
 //===========================================================================================================================
@@ -839,29 +946,50 @@ $(document).ready(() => {
 			readAll("products", function(resp) {
 				index=0;
 				list=resp;
-				loadProductsStore(list, index);
+				loadProductsStore(list);
 			});
 		}
 		if ($("#animais").is(':visible')){ 
 			readAll("pets", function(resp) {
 				index=0;
 				list=resp;
-				loadPetsUser(list,"000002");
+				loadPetsUser(list,localStorage.getItem("user_loged"));
 			});
 		}
 		if ($("#cbServicos").is(':visible')){ //Se estiver na tela de agendamento
 			readAll("servs", function(resp) {
+				list=resp;
 				loadServsCB(resp);
 			});
 		}
 		if ($("#cbPetbtn").is(':visible')){ //Se estiver na tela de agendamento
 			readAll("pets", function(resp) {
+				list2=resp;
 				loadPetsCB(resp);
+			});
+		}
+		if ($("#cbHorario").is(':visible')){ //Se estiver na tela de agendamento
+			readAll("saleservice", function(resp) {
+				list=resp;
+				loadTimeCB(resp);
 			});
 		}
 		if ($("#relatorio").is(':visible')){
 			readAll("products", function(resp){
 				loadProductsRelatorio(resp);
+			});
+		}
+		if ($("#compra_produtos").is(':visible')){
+			readAll("saleproducts", function(resp){
+				list = resp;
+				loadSalesP(resp);
+			});
+		}
+		if ($("#compra_serv").is(':visible')){
+			readAll("saleservice", function(resp){
+				list2=resp;
+				loadSalesS(resp);
+				
 			});
 		}
     });
